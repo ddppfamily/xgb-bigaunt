@@ -1,0 +1,47 @@
+/* set1.wxss */
+.ba-page{
+  text-align: center;
+  margin:10rpx 30rpx;
+  padding:50rpx 20rpx;
+  background: #fff;
+  border-radius: 20rpx;
+}
+.ba-header{
+  color:#ee816d;
+  margin:30rpx 0;
+}
+.ba-form{
+  background: #fff;
+}
+.ba-form-cell-header{
+  text-align: left;
+  color:#999;
+}
+picker{
+  height:40rpx;
+}
+.ba-input{
+  height:40rpx;
+ width:100%;
+ display:inline-block;
+  background: #efefef;
+  font-size:25rpx;
+}
+.ba-progress{
+
+}
+.ba-progress>view{
+  display: inline-block;
+  width:60rpx;
+  height:60rpx;
+  border-radius: 30rpx;
+  background: #efefef;
+  color:#fff;
+  text-align: center;
+  line-height: 60rpx;
+  margin:0 20rpx;
+
+}
+.ba-progress>view.current{
+  background: #ee816d;
+}

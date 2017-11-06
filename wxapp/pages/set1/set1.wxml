@@ -1,0 +1,35 @@
+<!--set1.wxml-->
+<view class='ba-page'>
+
+   <view class='ba-progress'>
+      <view class='ba-progress-cell current'>1</view>
+      <view class='ba-progress-cell'>2</view>
+   </view>
+   <view class='ba-header'><text>----请设置----</text></view>
+
+   <view class='ba-form'>
+      <view class='ba-form-cell'>
+         <view class='ba-form-cell-header'><text>开始时间</text></view>
+         <view>
+            <picker mode='date' 
+                    bindchange='handleStartDateChangeTap'><text class='ba-input'>{{startDate}}</text></picker>
+         </view>
+      </view>
+      <view  class='ba-form-cell'>
+         <view  class='ba-form-cell-header'><text>时长</text></view>
+         <view>
+              <picker mode='selector' 
+                    bindchange='handleContinueDaysChangeTap' range='{{continueDaysArr}}'><text class='ba-input'>{{continueDays}}</text></picker>
+         </view>
+      </view>
+      <view>
+         <view class='ba-form-cell-header'><text>周期</text></view>
+         <view>
+            <picker mode='selector' 
+                    bindchange='handleGapDaysChangeTap' range='{{gapDaysArr}}'><text class='ba-input'>{{gapDays}}</text></picker>
+         </view>
+      </view>   
+   </view>
+
+</view>
+
