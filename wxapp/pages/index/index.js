@@ -21,6 +21,12 @@ Page({
         url: '../set1/set1',
       })
   },
+  //
+  handleGoSet2: function () {
+      wx.navigateTo({
+        url: '../set2/set2',
+      })
+  },
   onLoad: function () {
     if (app.globalData.userInfo) {
       this.setData({

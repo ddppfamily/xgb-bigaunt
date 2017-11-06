@@ -8,7 +8,8 @@
     </block>
   </view>
   <view>
-    <text bindtap='handleGoSet1'>进入配置1</text>
+    <view bindtap='handleGoSet1'>进入配置1</view>
+    <view bindtap='handleGoSet2'>进入配置2</view>
   </view>
   <view class="usermotto">
     <text class="user-motto">{{motto}}</text>

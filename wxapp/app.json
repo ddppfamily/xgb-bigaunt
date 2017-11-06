@@ -2,7 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/logs/logs",
-    "pages/set1/set1"
+    "pages/set1/set1",
+    "pages/set2/set2"
   ],
   "window": {
     "backgroundTextStyle": "light",
