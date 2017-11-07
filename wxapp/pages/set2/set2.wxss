@@ -28,3 +28,14 @@ position:relative;
    color:#fff;
    background: #ee816d;
 }
+.ba-submit{
+  position: absolute;
+  bottom:-50rpx;
+  left:50%;
+  margin-left:-40rpx;
+  background: #fff;
+}
+.xgb-gou{
+  color:#e1e1e1;
+  font-size:80rpx;
+}

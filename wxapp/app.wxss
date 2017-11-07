@@ -1,5 +1,6 @@
 /**app.wxss**/
 @import 'weui.wxss';
+@import 'iconfont.wxss';
 
 .container {
   height: 100%;
@@ -21,6 +22,7 @@ page{
   padding:50rpx 20rpx;
   background: #fff;
   border-radius: 20rpx;
+  position: relative;
 }
 .ba-header{
   color:#ee816d;

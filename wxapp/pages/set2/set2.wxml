@@ -56,8 +56,11 @@
                   
                 </view>
          </view>
+      </view>
+      <view class="ba-submit">
+         <text class='iconfont xgb-gou'></text>
       </view>   
    </view>
-
+   
 </view>
 
