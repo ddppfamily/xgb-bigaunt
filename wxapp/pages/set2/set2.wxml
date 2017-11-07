@@ -58,7 +58,12 @@
          </view>
       </view>
       <view class="ba-submit">
-         <text class='iconfont xgb-gou'></text>
+         <text bindtap="handleSubmitTap" 
+               class='iconfont xgb-gou canClick'
+               wx:if='{{controlSubmit}}'></text>
+         <text bindtap="handleSubmitTap" 
+               class='iconfont xgb-gou'
+               wx:else></text>      
       </view>   
    </view>
    

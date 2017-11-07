@@ -43,7 +43,8 @@ Page({
         label: '经常',
         value: 3
       }]
-    }
+    },
+    controlSubmit: true
   },
   /**
    * 
@@ -74,6 +75,12 @@ Page({
     this.setData({
       'symptom.value': val
     })
+  },
+  /**
+   * 
+   */
+  handleSubmitTap: function (e) {
+
   },
   /**
    * 生命周期函数--监听页面加载
