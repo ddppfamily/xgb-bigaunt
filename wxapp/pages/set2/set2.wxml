@@ -10,22 +10,51 @@
    <view class='ba-form'>
       <view class='ba-form-cell'>
          <view class='ba-form-cell-header'><text>规律吗</text></view>
-         <view>
-           <view></view>
+         <view class='ba-form-cell-select'>
+           <block  wx:for='{{regularity.options}}'>
+              <view bindtap='handleRegularityTap' 
+                 wx:if='{{regularity.value === item.value}}'
+                 data-value= '{{item.value}}'  
+                 class='checked'>{{item.label}}</view> 
+              <view bindtap='handleRegularityTap' 
+                 wx:else 
+                 data-value= '{{item.value}}' >{{item.label}}</view> 
+           </block>
+          
          </view>
       </view>
       <view  class='ba-form-cell'>
-         <view  class='ba-form-cell-header'><text>时长</text></view>
+         <view  class='ba-form-cell-header'><text>程度</text></view>
          <view>
-              <picker mode='selector' 
-                    bindchange='handleContinueDaysChangeTap' range='{{continueDaysArr}}'><text class='ba-input'>{{continueDays}}</text></picker>
+               <view class='ba-form-cell-select'>
+                  <block  wx:for='{{level.options}}'>
+                      <view bindtap='handleLevelTap' 
+                        wx:if='{{level.value === item.value}}'
+                        data-value= '{{item.value}}'  
+                        class='checked'>{{item.label}}</view> 
+                      <view bindtap='handleLevelTap' 
+                        wx:else 
+                        data-value= '{{item.value}}' >{{item.label}}</view> 
+                  </block>
+                  
+                </view>
          </view>
       </view>
       <view>
          <view class='ba-form-cell-header'><text>周期</text></view>
          <view>
-            <picker mode='selector' 
-                    bindchange='handleGapDaysChangeTap' range='{{gapDaysArr}}'><text class='ba-input'>{{gapDays}}</text></picker>
+           <view class='ba-form-cell-select'>
+                  <block  wx:for='{{symptom.options}}'>
+                      <view bindtap='handleSymptomTap' 
+                        wx:if='{{symptom.value === item.value}}'
+                        data-value= '{{item.value}}'  
+                        class='checked'>{{item.label}}</view> 
+                      <view bindtap='handleSymptomTap' 
+                        wx:else 
+                        data-value= '{{item.value}}' >{{item.label}}</view> 
+                  </block>
+                  
+                </view>
          </view>
       </view>   
    </view>

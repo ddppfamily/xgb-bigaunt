@@ -12,3 +12,19 @@ height:22px;
 position:relative;
 
 }
+.ba-form-cell-select>view{
+  display: inline-block;
+  width:100rpx;
+  height:100rpx;
+  border-radius: 50%;
+  border:1px solid #e1e1e1;
+  text-align: center;
+  line-height: 3.5;
+  font-size: 30rpx;
+  margin:10rpx 20rpx;
+  background: #e1e1e1;
+}
+.ba-form-cell-select>view.checked{
+   color:#fff;
+   background: #ee816d;
+}

@@ -5,9 +5,76 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    regularity:{
+      value: 1,
+      options: [{
+        label: '正常',
+        value: 1
+      }, {
+        label: '偶尔',
+        value: 2
+        }, {
+          label: '不正常',
+          value: 3
+        }]
+    },
+    level: {
+      value: 1,
+      options: [{
+        label: '轻',
+        value: 1
+      }, {
+        label: '中',
+        value: 2
+      }, {
+        label: '重',
+        value: 3
+      }]
+    },
+    symptom: {
+      value: 1,
+      options: [{
+        label: '没有',
+        value: 1
+      }, {
+        label: '偶尔',
+        value: 2
+      }, {
+        label: '经常',
+        value: 3
+      }]
+    }
   },
-
+  /**
+   * 
+   */
+  handleRegularityTap: function (e) {
+    console.log(e)
+    var val = e.currentTarget.dataset.value
+    this.setData({
+      'regularity.value': val
+    })
+  },
+  /**
+   * 
+   */
+  handleLevelTap: function (e) {
+    console.log(e)
+    var val = e.currentTarget.dataset.value
+    this.setData({
+      'level.value': val
+    })
+  },
+  /**
+   * 
+   */
+  handleSymptomTap: function (e) {
+    console.log(e)
+    var val = e.currentTarget.dataset.value
+    this.setData({
+      'symptom.value': val
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
