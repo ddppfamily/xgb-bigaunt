@@ -42,5 +42,6 @@ position:relative;
   border-radius:50%;
 }
 .canClick{
-  background: #ee816d;
+  background:#fff;
+  color:#ee816d;
 }
