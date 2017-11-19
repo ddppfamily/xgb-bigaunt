@@ -1,0 +1,29 @@
+/* records.wxss */
+.calender-header,.calender-row,.calender-desp{
+  display: flex;
+}
+.calender-header view,.calender-row>view,.calender-desp>view{
+  flex:1;
+  text-align: center;
+  padding: 3rpx 0;
+}
+.calender-row>view{
+  background: #fff;
+  /* border:2px solid transparent; */
+  margin:1rpx;
+  border-radius: 10rpx;
+}
+.currentDate{
+  color:crimson;
+}
+.calender-panel{
+  background: #fff;
+}
+.calender-panel-cell{
+  background: #e1e1e1;
+  padding:5rpx;
+}
+.calender-desp{
+  background: #fff;
+  margin:5rpx;
+}

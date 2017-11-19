@@ -1,0 +1,38 @@
+<!--records.wxml-->
+<view class='calender-panel'>
+<view class='calender-header'>
+ <view>日</view>
+ <view>一</view>
+ <view>二</view>
+ <view>三</view>
+ <view>四</view>
+ <view>五</view>
+ <view>六</view>
+</view>
+<view class='calender-panel-cell'>
+<block wx:for="{{dateArr}}">
+   <view class='calender-row'>
+     <block wx:for='{{item}}' wx:for-item="cell">
+       <view wx:if="{{cell === currentDate}}" class="currentDate">{{cell}}</view>
+       <view wx:else>{{cell}}</view>
+     </block>
+   </view>
+</block>
+<!--注释区域-->
+<view class='calender-desp'>
+   <view>月经期</view>
+   <view>预测期</view>
+   <view>安全期</view>
+   <view>易孕期</view>
+   <view>排卵日</view>
+</view>
+<!--调整-->
+<view>
+  <view>下个月再见，大姨妈</view>
+</view>
+</view>
+</view>
+<!--文章列表-->
+<view>
+  
+</view>

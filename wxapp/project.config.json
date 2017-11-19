@@ -9,9 +9,31 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "1.6.4",
-	"appid": "touristappid",
+	"appid": "wx406b9d11d7d6ec38",
 	"projectname": "bigaunt",
 	"condition": {
+		"weapp": {
+			"current": 2,
+			"list": [
+				{
+					"id": -1,
+					"name": "index",
+					"pathName": "pages/index/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "set2",
+					"pathName": "pages/set2/set2",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "records",
+					"pathName": "pages/records/records"
+				}
+			]
+		},
 		"search": {
 			"current": -1,
 			"list": []
