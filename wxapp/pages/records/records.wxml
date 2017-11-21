@@ -1,4 +1,9 @@
 <!--records.wxml-->
+<view class='calender-change'>
+  <text bindtap='change' data-tag='pre' class='iconfont xgb-arrow-left'></text>
+  <text class='calender-change-date'>{{displayYear}} - {{displayMonth}}</text>
+  <text bindtap='change' data-tag='next' class='iconfont xgb-arrow-right'></text>
+</view>
 <view class='calender-panel'>
 <view class='calender-header'>
  <view>日</view>
@@ -13,8 +18,10 @@
 <block wx:for="{{dateArr}}">
    <view class='calender-row'>
      <block wx:for='{{item}}' wx:for-item="cell">
-       <view wx:if="{{cell === currentDate}}" class="currentDate">{{cell}}</view>
-       <view wx:else>{{cell}}</view>
+       <view wx:if="{{cell.monthTag === -1}}" class="calender-premonth">{{cell.date}}</view>
+       <view wx:if="{{cell.monthTag === 0 && cell === currentDate}}" class="currentDate">{{cell.date}}</view>
+       <view wx:if="{{cell.monthTag === 0 && cell !== currentDate}}">{{cell.date}}</view>
+       <view wx:if="{{cell.monthTag === 1}}">{{cell.date}}</view>
      </block>
    </view>
 </block>
