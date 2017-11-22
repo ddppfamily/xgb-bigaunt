@@ -13,6 +13,7 @@ Page({
     displayYear: '',
     displayMonth: '',
     displayWeek: '',
+    computeDate: '',
     year_ping: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
     year_run: [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
     /**
@@ -21,6 +22,7 @@ Page({
      * 由于要判断上一个月和下一个月，本月，所以存对象
      * {
      *   date: '',
+     *   status: '',//0代表普通，1代表开始，2代表进行中，3代表结束
      *   monthTag: '' ///-1代表上个月，0代表当前月，1代表下一月
      * }
      */
@@ -38,17 +40,21 @@ Page({
        ///上一个月
        displayYear = displayMonth === 1 ? displayYear - 1 : displayYear
        displayMonth = displayMonth === 1 ? 12 : displayMonth - 1
-      
+       this.setData({
+         displayYear: displayYear,
+         displayMonth: displayMonth
+       })
      } else {
        ///下一个月
        displayYear = displayMonth === 12 ? displayYear + 1 : displayYear
        displayMonth = displayMonth === 12 ? 1 : displayMonth + 1
-      
+       this.setData({
+         displayYear: displayYear,
+         displayMonth: displayMonth
+       })
+       this.compute()
      }
-     this.setData({
-       displayYear: displayYear,
-       displayMonth: displayMonth
-     })
+    
      this.setCalender(displayYear, displayMonth)
   },
 
@@ -67,7 +73,26 @@ Page({
       displayMonth: date.month,
       displayWeek: date.week,
     })
+
+    ////测试
+    this.mock()
+
+    this.compute()
+
     this.setArr()
+  },
+  /**
+   * mock数据，测试所用
+   */
+  mock () {
+    var base = {
+      continueDays: 7,
+      year: 2017,
+      month: 10,
+      preMonthPause: 21,
+      gapDays: 25 
+    }
+    wx.setStorageSync('base', base)
   },
   /**
    * 某天的日期对象，包含，年，月，日，星期
@@ -100,7 +125,6 @@ Page({
    */
   setArr () {
     this.setCalender(this.data.displayYear, this.data.displayMonth)
-   
   },
   /**
    * 日历生成
@@ -133,11 +157,13 @@ Page({
       if (i > year[qmonth - 1]) {
         tempArr.push({
           monthTag: 1,
+          status:0,
           date: ''
         })
       } else {
         tempArr.push({
           monthTag: 0,
+          status: 0,
           date: i
         })
       }
@@ -148,6 +174,7 @@ Page({
       //  tempArr.unshift(' ')
       tempArr.unshift({
         monthTag: -1,
+        status: 0,
         date: preMonthDaysTemp
       })
       --preMonthDaysTemp
@@ -159,10 +186,65 @@ Page({
       dateArr.push(tempArr.splice(0, 7))
     }
     console.log(dateArr)
-
+    this.addStatusCalender(dateArr)
     this.setData({
       dateArr: dateArr
     })
+  },
+  /**
+   * 根据上个月结束时间和间隔天数，来推算本月开始，结束时间
+   * 往前是推算（从本月开始），往后是接口记录数据
+   */
+  compute () {
+    var base = wx.getStorageSync('base'),
+        preMonthPause = base.preMonthPause,
+        gapDays = base.gapDays,
+        continueDays = base.continueDays,
+        year = base.year,
+        month = base.month,
+        diffDays = ((this.data.displayYear - year) * 12 + (this.data.displayMonth - month)) * (gapDays + continueDays) - continueDays,
+        baseYMD = year + '-' + month + '-' + preMonthPause,
+        baseDate = new Date(baseYMD),
+        baseTimestamp = baseDate.getTime(),
+        computeDateObj = new Date(baseTimestamp + diffDays*24*60*60*1000),
+        computeDate = computeDateObj.getDate()
+        //computeYMD = this.data.displayYear + '-' + this.data.displayMonth + '-' + this.data.displayWeek, 
+        //computeDate = new Date(computeYMD)
+
+       this.setData({
+         computeDate: computeDate
+       })
+
+  },
+  /**
+   * 循环日历，把状态加上，开始，持续，结束
+   */
+  addStatusCalender (arr) {
+    var startDate = this.data.computeDate,
+        base = wx.getStorageSync('base'),
+        gapDays = base.gapDays,
+        total = gapDays,
+        status = ''
+
+      arr.forEach(function(item){
+          item.forEach(function(cell){
+              if (cell.date == startDate){
+                cell.status = 1
+                total--
+                status = 2
+              } else if (status == 2) {
+                
+                if (total >= 0) {
+                  cell.status = total == 0 ? 3 : 2
+                  total--
+                } else {
+                   status = ''
+                }
+               
+              }
+             
+          })
+      })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

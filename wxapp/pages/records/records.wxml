@@ -18,10 +18,23 @@
 <block wx:for="{{dateArr}}">
    <view class='calender-row'>
      <block wx:for='{{item}}' wx:for-item="cell">
-       <view wx:if="{{cell.monthTag === -1}}" class="calender-premonth">{{cell.date}}</view>
-       <view wx:if="{{cell.monthTag === 0 && cell === currentDate}}" class="currentDate">{{cell.date}}</view>
-       <view wx:if="{{cell.monthTag === 0 && cell !== currentDate}}">{{cell.date}}</view>
-       <view wx:if="{{cell.monthTag === 1}}">{{cell.date}}</view>
+       <view wx:if="{{cell.monthTag === -1  && cell.status == 0}}" class="calender-premonth">{{cell.date}}</view>
+       <view wx:if="{{cell.monthTag === -1 && cell.status == 1}}" class="calender-premonth start">{{cell.date}}</view>
+       <view wx:if="{{cell.monthTag === -1 && cell.status == 2}}" class="calender-premonth continue">{{cell.date}}</view>
+       <view wx:if="{{cell.monthTag === -1 && cell.status == 3}}" class="calender-premonth pause">{{cell.date}}</view>
+       <view wx:if="{{cell.monthTag === 0 && cell.date === currentDate  && cell.status == 0}}" class="currentDate">{{cell.date}}</view>
+       <view wx:if="{{cell.monthTag === 0 && cell.date === currentDate && cell.status == 1}}" class="currentDate start">{{cell.date}}</view>
+       <view wx:if="{{cell.monthTag === 0 && cell.date === currentDate && cell.status == 2}}" class="currentDate continue">{{cell.date}}</view>
+       <view wx:if="{{cell.monthTag === 0 && cell.date === currentDate && cell.status == 3}}" class="currentDate pause">{{cell.date}}</view>
+       <view wx:if="{{cell.monthTag === 0 && cell.date !== currentDate  && cell.status == 0}}">{{cell.date}}</view>
+       <view wx:if="{{cell.monthTag === 0 && cell.date !== currentDate && cell.status == 1}}" class='start'>{{cell.date}}</view>
+       <view wx:if="{{cell.monthTag === 0 && cell.date !== currentDate  && cell.status == 2}}" class='continue'>{{cell.date}}</view>
+       <view wx:if="{{cell.monthTag === 0 && cell.date !== currentDate && cell.status == 3}}" class='pause'>{{cell.date}}</view>
+       <view wx:if="{{cell.monthTag === 1 && cell.status == 0}}">{{cell.date}}</view>
+       <view wx:if="{{cell.monthTag === 1 && cell.status == 1}}" class='start'>{{cell.date}}</view>
+       <view wx:if="{{cell.monthTag === 1 && cell.status == 2}} " class='continue'>{{cell.date}}</view>
+       <view wx:if="{{cell.monthTag === 1 && cell.status == 3}} " class='pause'>{{cell.date}}</view>
+      
      </block>
    </view>
 </block>

@@ -41,3 +41,13 @@
 .calender-premonth{
   color:#e1e1e1;
 }
+
+.start{
+  background: #CC0000;
+}
+.continue{
+  background: #CC3333;
+}
+.pause{
+   background: #CC6633;
+}
