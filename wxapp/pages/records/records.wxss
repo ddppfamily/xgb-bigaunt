@@ -42,12 +42,15 @@
   color:#e1e1e1;
 }
 
-.start{
-  background: #CC0000;
+.calender-row .start{
+  color: #CC0000;
 }
-.continue{
-  background: #CC3333;
+.calender-row .continue{
+  color: #CC3333;
 }
-.pause{
-   background: #CC6633;
+.calender-row .pause{
+   color: #CC6633;
+}
+.calender-row .selected{
+   border:2px solid #CC0000;
 }

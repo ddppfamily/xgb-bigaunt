@@ -21,9 +21,11 @@ Page({
      * 数组的数组，子数组代表一行，始终1号开始
      * 由于要判断上一个月和下一个月，本月，所以存对象
      * {
+     *   ymd: '',///年月日记录
      *   date: '',
      *   status: '',//0代表普通，1代表开始，2代表进行中，3代表结束
-     *   monthTag: '' ///-1代表上个月，0代表当前月，1代表下一月
+     *   monthTag: '' ///-1代表上个月，0代表当前月，1代表下一月,
+     *   selected: true|fasle //点击选中，默认当天选中
      * }
      */
     dateArr:[]
@@ -150,21 +152,26 @@ Page({
     // }
     ///上个月
     preMonth.month = qmonth == 1 ? 12 : qmonth - 1
+    preMonth.year = qmonth == 1 ? qyear - 1 : qyear
     preMonth.days = year[preMonth.month - 1]
     var preMonthDaysTemp = preMonth.days
 
     for (var i = 1; i < 36; i++) {
       if (i > year[qmonth - 1]) {
         tempArr.push({
+          ymd: '',
           monthTag: 1,
           status:0,
-          date: ''
+          date: '',
+          selected: false
         })
       } else {
         tempArr.push({
+          ymd: qyear + '-' + qmonth + '-' + i,
           monthTag: 0,
           status: 0,
-          date: i
+          date: i,
+          selected: false
         })
       }
 
@@ -173,9 +180,11 @@ Page({
     for (var i = 0; i < week1; i++) {
       //  tempArr.unshift(' ')
       tempArr.unshift({
+        ymd: preMonth.year + '-' + preMonth.month + '-' + preMonthDaysTemp,
         monthTag: -1,
         status: 0,
-        date: preMonthDaysTemp
+        date: preMonthDaysTemp,
+        selected: false
       })
       --preMonthDaysTemp
     }
@@ -185,8 +194,10 @@ Page({
     while (tempArr.length > 0) {
       dateArr.push(tempArr.splice(0, 7))
     }
-    console.log(dateArr)
+    
     this.addStatusCalender(dateArr)
+    console.log(dateArr)
+
     this.setData({
       dateArr: dateArr
     })
@@ -222,12 +233,16 @@ Page({
   addStatusCalender (arr) {
     var startDate = this.data.computeDate,
         base = wx.getStorageSync('base'),
-        gapDays = base.gapDays,
-        total = gapDays,
+        continueDays = base.continueDays,
+        displayDate = this.data.displayDate,
+        total = continueDays,
         status = ''
 
       arr.forEach(function(item){
           item.forEach(function(cell){
+            if (cell.date == displayDate) {
+               cell.selected = true
+            }
               if (cell.date == startDate){
                 cell.status = 1
                 total--
@@ -242,9 +257,22 @@ Page({
                 }
                
               }
+              console.log('total ===' + total)
              
           })
       })
+  },
+  /**
+   * 追溯历史，传入年月日
+   */
+  getHistory () {
+     
+  },
+  /**
+   * 点击日期，选中，可以手动开始和结束
+   */
+  handleDateTap (e) {
+     
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
