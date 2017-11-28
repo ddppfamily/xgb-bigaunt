@@ -14,6 +14,9 @@ Page({
     displayMonth: '',
     displayWeek: '',
     computeDate: '',
+    manualStartDate: '',///手动开始日期
+    manualEndDate: '',///手动结束日期
+    manualBtn: 'y',  ///n 代表是出现否，y代表是出现是
     year_ping: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
     year_run: [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
     /**
@@ -272,7 +275,10 @@ Page({
    * 点击日期，选中，可以手动开始和结束
    */
   handleDateTap (e) {
-     
+     var ymd = e.currentTarget.dataset.ymd
+     console.log(ymd)
+     ///出现手动开始或者结束按钮，如果已经有手动日期了，则出现结束日期
+
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

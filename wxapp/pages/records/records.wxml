@@ -20,22 +20,22 @@
      <block wx:for='{{item}}' wx:for-item="cell">
        <block wx:if='{{cell.monthTag === -1}}'>
           <view wx:if="{{cell.status == 0}}" class="calender-premonth" data-ymd='{{cell.ymd}}' bindtap='handleDateTap'>{{cell.date}}</view>
-          <view wx:if="{{cell.status == 1}}" class="calender-premonth start"><i class="iconfont xgb-start"></i>{{cell.date}}</view>
-          <view wx:if="{{cell.status == 2}}" class="calender-premonth continue">{{cell.date}}</view>
-          <view wx:if="{{cell.status == 3}}" class="calender-premonth pause"><i class="iconfont xgb-pause"></i>{{cell.date}}</view>
+          <view wx:if="{{cell.status == 1}}" class="calender-premonth start" data-ymd='{{cell.ymd}}' bindtap='handleDateTap'><i class="iconfont xgb-start"></i>{{cell.date}}</view>
+          <view wx:if="{{cell.status == 2}}" class="calender-premonth continue" data-ymd='{{cell.ymd}}' bindtap='handleDateTap'>{{cell.date}}</view>
+          <view wx:if="{{cell.status == 3}}" class="calender-premonth pause" data-ymd='{{cell.ymd}}' bindtap='handleDateTap'><i class="iconfont xgb-pause"></i>{{cell.date}}</view>
        </block>
        <block wx:if='{{cell.monthTag === 0}}'>
           <block wx:if='{{cell.date === currentDate}}'>
-            <view wx:if="{{cell.status == 0}}" class="currentDate selected">{{cell.date}}</view>
-            <view wx:if="{{cell.status == 1}}" class="currentDate start selected"><i class="iconfont xgb-start"></i>{{cell.date}}</view>
-            <view wx:if="{{cell.status == 2}}" class="currentDate continue selected">{{cell.date}}</view>
-            <view wx:if="{{cell.status == 3}}" class="currentDate pause selected"><i class="iconfont xgb-pause"></i>{{cell.date}}</view>
+            <view wx:if="{{cell.status == 0}}" class="currentDate selected" data-ymd='{{cell.ymd}}' bindtap='handleDateTap'>{{cell.date}}</view>
+            <view wx:if="{{cell.status == 1}}" class="currentDate start selected" data-ymd='{{cell.ymd}}' bindtap='handleDateTap'><i class="iconfont xgb-start"></i>{{cell.date}}</view>
+            <view wx:if="{{cell.status == 2}}" class="currentDate continue selected" data-ymd='{{cell.ymd}}' bindtap='handleDateTap'>{{cell.date}}</view>
+            <view wx:if="{{cell.status == 3}}" class="currentDate pause selected" data-ymd='{{cell.ymd}}' bindtap='handleDateTap'><i class="iconfont xgb-pause"></i>{{cell.date}}</view>
           </block>
            <block wx:if='{{cell.date != currentDate}}'>
-              <view wx:if="{{cell.status == 0}}">{{cell.date}}</view>
-              <view wx:if="{{cell.status == 1}}" class='start'><i class="iconfont xgb-start"></i>{{cell.date}}</view>
-              <view wx:if="{{cell.status == 2}}" class='continue'>{{cell.date}}</view>
-              <view wx:if="{{cell.status == 3}}" class='pause'><i class="iconfont xgb-pause"></i>{{cell.date}}</view>
+              <view wx:if="{{cell.status == 0}}" data-ymd='{{cell.ymd}}' bindtap='handleDateTap'>{{cell.date}}</view>
+              <view wx:if="{{cell.status == 1}}" class='start' data-ymd='{{cell.ymd}}' bindtap='handleDateTap'><i class="iconfont xgb-start"></i>{{cell.date}}</view>
+              <view wx:if="{{cell.status == 2}}" class='continue' data-ymd='{{cell.ymd}}' bindtap='handleDateTap'>{{cell.date}}</view>
+              <view wx:if="{{cell.status == 3}}" class='pause' data-ymd='{{cell.ymd}}' bindtap='handleDateTap'><i class="iconfont xgb-pause"></i>{{cell.date}}</view>
            </block>
           
        </block>
@@ -57,10 +57,17 @@
    <view>易孕期</view>
    <view>排卵日</view>
 </view>
-<!--调整-->
+<!--手动调整-->
 <view>
-  <view>下个月再见，大姨妈</view>
+  <view>
+     姨妈妈，来了吗？
+     <view class=''>
+        <view class='manual-container'><text></text><text>否</text></view>
+        <view class='manual-container'><text>是</text><text></text></view>
+     </view>
+  </view>
 </view>
+
 </view>
 </view>
 <!--文章列表-->

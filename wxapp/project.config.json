@@ -44,7 +44,8 @@
 				{
 					"id": -1,
 					"name": "records",
-					"pathName": "pages/records/records"
+					"pathName": "pages/records/records",
+					"query": ""
 				}
 			]
 		}
