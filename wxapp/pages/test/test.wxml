@@ -7,3 +7,12 @@
    <view>是</view>
    <view class='xgb-btn'></view>
 </view>
+
+<!--列表  -->
+<view class='xgb-list'>
+    <view class='xgb-list-img'><image></image></view>
+    <view class='xgb-flex'>
+       <view class='xgb-title'></view>
+       <view class='xgb-desc'></view>
+    </view>
+</view>

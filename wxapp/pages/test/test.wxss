@@ -20,3 +20,29 @@ page{
 .xgb-btn{
   background: #ff0000;
 }
+
+.xgb-list{
+  padding:10rpx 20rpx;
+  border-bottom: 1px solid #e1e1e1;
+  display: flex;
+}
+.xgb-list>.xgb-flex{
+  flex:1;
+}
+.xgb-list-img{
+  margin:0 10rpx;
+}
+.xgb-list-img>image{
+   width:80px;
+   height:80px;
+   background: #efefef;
+}
+.xgb-title{
+  height:35px;
+  background: #efefef;
+  margin-bottom:15px;
+}
+.xgb-desc{
+  height:30px;
+  background: #efefef;
+}
