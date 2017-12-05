@@ -4,7 +4,8 @@
     "pages/logs/logs",
     "pages/set1/set1",
     "pages/set2/set2",
-    "pages/records/records"
+    "pages/records/records",
+    "pages/test/test"
   ],
   "window": {
     "backgroundTextStyle": "light",

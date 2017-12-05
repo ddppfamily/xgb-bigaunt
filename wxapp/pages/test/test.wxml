@@ -1,0 +1,9 @@
+<!--test.wxml-->
+<view class='xgb-radio'>
+    <view class='xgb-btn'></view>
+    <view>否</view>
+</view>
+<view class='xgb-radio'>
+   <view>是</view>
+   <view class='xgb-btn'></view>
+</view>

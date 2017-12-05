@@ -1,0 +1,22 @@
+/* test.wxss */
+page{
+  background: #fff;
+}
+.xgb-radio{
+  position: relative;
+  display: flex;
+  width:200rpx;
+  height:40rpx;
+  border:1px solid #ff0000;
+  border-radius: 20rpx;
+  margin:20rpx;
+  overflow: hidden;
+}
+.xgb-radio>view{
+  flex:1;
+  text-align: center;
+  line-height:40rpx;
+}
+.xgb-btn{
+  background: #ff0000;
+}
