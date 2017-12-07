@@ -9,16 +9,22 @@ Page({
     currentYear: '',
     currentMonth: '',
     currentWeek: '',
+    currentYMD: '',
     displayDate: '',
     displayYear: '',
     displayMonth: '',
     displayWeek: '',
+    displayYMD: '',
     computeDate: '',
-    manualStartDate: '',///手动开始日期
-    manualEndDate: '',///手动结束日期
-    manualBtn: 'y',  ///n 代表是出现否，y代表是出现是
     year_ping: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
     year_run: [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+    /**
+     * 排卵期计算方式
+     * 下次月经来潮的第1天算起，
+     * 倒数14天或减去14天就是排卵日，
+     * 排卵日及其前5天和后4天加在一起称为排卵期(容易受孕期)
+     */
+    ovulationDate: '',
     /**
      * [[1,2,3,4,5,6,7]]
      * 数组的数组，子数组代表一行，始终1号开始
@@ -31,7 +37,21 @@ Page({
      *   selected: true|fasle //点击选中，默认当天选中
      * }
      */
-    dateArr:[]
+    dateArr:[],
+    ///手动确定是否来了，或者是结束了
+    submitBtn:false,
+    ///手动确定模型
+    handSubmit: {
+      ///确定的开始日期
+      submitStartDate: '',
+      ///确定的结束日期
+      submitEndDate: '',
+      startDesc: '开始',
+      endDesc: '结束',
+      tip: '',
+      show: false
+    }
+    
   },
   /**
    * change ，前后月切换
@@ -67,17 +87,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var date = this.getCurrentDate(new Date())
-    this.setData({
-      currentDate: date.date,
-      currentYear: date.year,
-      currentMonth: date.month,
-      currentWeek: date.week,
-      displayDate: date.date,
-      displayYear: date.year,
-      displayMonth: date.month,
-      displayWeek: date.week,
-    })
+    this.initDate()
 
     ////测试
     this.mock()
@@ -85,6 +95,24 @@ Page({
     this.compute()
 
     this.setArr()
+  },
+  /**
+   * 初始化显示日期和当前日期
+   */
+  initDate () {
+    var date = this.getCurrentDate(new Date())
+    this.setData({
+      currentDate: date.date,
+      currentYear: date.year,
+      currentMonth: date.month,
+      currentWeek: date.week,
+      currentYMD: date.year + '-' + date.month + '-' + date.date,
+      displayYMD: date.year + '-' + date.month + '-' + date.date,
+      displayDate: date.date,
+      displayYear: date.year,
+      displayMonth: date.month,
+      displayWeek: date.week
+    })
   },
   /**
    * mock数据，测试所用
@@ -275,11 +303,44 @@ Page({
    * 点击日期，选中，可以手动开始和结束
    */
   handleDateTap (e) {
-     var ymd = e.currentTarget.dataset.ymd
-     console.log(ymd)
-     ///出现手动开始或者结束按钮，如果已经有手动日期了，则出现结束日期
+     var ymd = e.currentTarget.dataset.ymd,
+       submitStartDate = this.data.handSubmit.submitStartDate,
+       submitEndDate = this.data.handSubmit.submitEndDate,
+       tip = ''
 
+     console.log(ymd)
+
+     ///出现手动开始或者结束按钮，如果已经有手动日期了，则出现结束日期
+     if (submitStartDate) {
+       ///已经设置了手动开始
+       tip = this.data.handSubmit.endDesc
+      
+     } else {
+       tip = this.data.handSubmit.startDesc
+     }
+
+     this.setData({
+       displayYMD: ymd,
+       'handSubmit.tip': tip,
+       'handSubmit.show': true
+     })
+     
   },
+  /**
+   * 手动点击确定是开始还是结束
+   */
+  handleHandSubmit (e) {
+    var type = e.currentTarget.dataset.type,
+        submitBtn
+    submitBtn = type === 'y' ? true : false
+    this.setData({
+      submitBtn: submitBtn
+    })
+    ////异步请求保存日期
+  },
+  /**
+   * 
+   */
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

@@ -25,13 +25,13 @@
           <view wx:if="{{cell.status == 3}}" class="calender-premonth pause" data-ymd='{{cell.ymd}}' bindtap='handleDateTap'><i class="iconfont xgb-pause"></i>{{cell.date}}</view>
        </block>
        <block wx:if='{{cell.monthTag === 0}}'>
-          <block wx:if='{{cell.date === currentDate}}'>
+          <block wx:if='{{cell.ymd === displayYMD}}'>
             <view wx:if="{{cell.status == 0}}" class="currentDate selected" data-ymd='{{cell.ymd}}' bindtap='handleDateTap'>{{cell.date}}</view>
             <view wx:if="{{cell.status == 1}}" class="currentDate start selected" data-ymd='{{cell.ymd}}' bindtap='handleDateTap'><i class="iconfont xgb-start"></i>{{cell.date}}</view>
             <view wx:if="{{cell.status == 2}}" class="currentDate continue selected" data-ymd='{{cell.ymd}}' bindtap='handleDateTap'>{{cell.date}}</view>
             <view wx:if="{{cell.status == 3}}" class="currentDate pause selected" data-ymd='{{cell.ymd}}' bindtap='handleDateTap'><i class="iconfont xgb-pause"></i>{{cell.date}}</view>
           </block>
-           <block wx:if='{{cell.date != currentDate}}'>
+           <block wx:if='{{cell.ymd != displayYMD}}'>
               <view wx:if="{{cell.status == 0}}" data-ymd='{{cell.ymd}}' bindtap='handleDateTap'>{{cell.date}}</view>
               <view wx:if="{{cell.status == 1}}" class='start' data-ymd='{{cell.ymd}}' bindtap='handleDateTap'><i class="iconfont xgb-start"></i>{{cell.date}}</view>
               <view wx:if="{{cell.status == 2}}" class='continue' data-ymd='{{cell.ymd}}' bindtap='handleDateTap'>{{cell.date}}</view>
@@ -51,20 +51,27 @@
 </block>
 <!--注释区域-->
 <view class='calender-desp'>
-   <view>月经期</view>
+   <!-- <view>月经期</view>
    <view>预测期</view>
    <view>安全期</view>
    <view>易孕期</view>
-   <view>排卵日</view>
+   <view>排卵日</view> -->
 </view>
 <!--手动调整-->
 <view>
-  <view>
-     姨妈妈，来了吗？
-     <view class=''>
-        <view class='manual-container'><text></text><text>否</text></view>
-        <view class='manual-container'><text>是</text><text></text></view>
-     </view>
+  <view wx:if='{{handSubmit.show === true}}'>
+     {{handSubmit.tip}}
+    <view class='btn-pannel'>
+        <view wx:if='{{submitBtn == false}}' class='xgb-radio' data-type='y' bindtap='handleHandSubmit'>
+            <view class='xgb-btn'></view>
+            <view>否</view>
+        </view>
+        <view wx:if='{{submitBtn == true}}' class='xgb-radio' data-type='n' bindtap='handleHandSubmit'>
+          <view>是</view>
+          <view class='xgb-btn'></view>
+        </view>
+    </view>
+     
   </view>
 </view>
 
