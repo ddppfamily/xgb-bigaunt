@@ -19,9 +19,10 @@
 }
 .calender-row>view{
   background: #fff;
-  /* border:2px solid transparent; */
+  border:2px solid #fff; 
   margin:1rpx;
   border-radius: 10rpx;
+  color: #99CC00;
 }
 .currentDate{
   color:crimson;
@@ -44,15 +45,39 @@
 
 .calender-row .start{
   color: #CC0000;
+  background: #FFCCCC;
+  border:2px solid #FFCCCC;
 }
 .calender-row .continue{
   color: #CC3333;
+  background: #FFCCCC;
+  border:2px solid #FFCCCC;
 }
 .calender-row .pause{
    color: #CC6633;
+   background: #FFCCCC;
+   border:2px solid #FFCCCC;
 }
 .calender-row .selected{
    border:2px solid #CC0000;
+}
+.calender-row .easy{
+   color: #9933FF;
+}
+ .calender-row .safe{
+   color: #99CC00;
+} 
+.calender-row .submit-start{
+  color: #fff;
+  background: #CC0000;
+}
+.calender-row .submit-continue{
+  background: #CC3333;
+  color: #fff;
+}
+.calender-row .submit-pause{
+   color: #fff;
+   background:#CC6633;
 }
 
 .btn-pannel{
