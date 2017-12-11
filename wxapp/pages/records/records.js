@@ -73,12 +73,12 @@ Page({
   change (e) {
      var tag = e.currentTarget.dataset.tag,
        displayYear = this.data.displayYear,
-       displayMonth = this.data.displayMonth
+       displayMonth = parseInt(this.data.displayMonth)
      
      if (tag === 'pre') {
        ///上一个月
        displayYear = displayMonth === 1 ? displayYear - 1 : displayYear
-       displayMonth = displayMonth === 1 ? 12 : displayMonth - 1
+       displayMonth = displayMonth === 1 ? 12 : ((displayMonth - 1) >= 10 ? (displayMonth - 1) : '0' + (displayMonth - 1))
        this.setData({
          displayYear: displayYear,
          displayMonth: displayMonth
@@ -86,7 +86,7 @@ Page({
      } else {
        ///下一个月
        displayYear = displayMonth === 12 ? displayYear + 1 : displayYear
-       displayMonth = displayMonth === 12 ? 1 : displayMonth + 1
+       displayMonth = displayMonth === 12 ? 1 : ((displayMonth + 1) >= 10 ? (displayMonth + 1) : '0' + (displayMonth + 1))
        this.setData({
          displayYear: displayYear,
          displayMonth: displayMonth
@@ -202,6 +202,7 @@ Page({
     var preMonth = {}
     var year = year_ping
     var qTempArr = []
+    var qmonth = parseInt(qmonth)
 
     if (this.isRunYear(qyear)) {
       year = year_run
@@ -232,7 +233,7 @@ Page({
     //本月
     for (var i = 1, len = (maxDays + 1); i < len;i++) {
       qTempArr.push({
-        ymd: qyear + '-' + qmonth + '-' + i,
+        ymd: qyear + '-' + (qmonth >= 10 ? qmonth : ('0' + qmonth)) + '-' + (i >= 10 ? i : ('0' + i)),
         monthTag: 0,
         status: 0,
         date: i,
@@ -358,17 +359,17 @@ Page({
         dates = opts.dates,//开始日期，结束日期的区间数组
         displayDate = this.data.displayDate,
         easyPregnancyTime = this.data.easyPregnancyTime
-    wx.showModal({
-      title: '提示',
-      content: easyPregnancyTime.join(','),
-      success: function (res) {
-        if (res.confirm) {
-          console.log('用户点击确定')
-        } else if (res.cancel) {
-          console.log('用户点击取消')
-        }
-      }
-    })
+    // wx.showModal({
+    //   title: '提示',
+    //   content: easyPregnancyTime.join(','),
+    //   success: function (res) {
+    //     if (res.confirm) {
+    //       console.log('用户点击确定')
+    //     } else if (res.cancel) {
+    //       console.log('用户点击取消')
+    //     }
+    //   }
+    // })
       arr.forEach(function(item){
           item.forEach(function(cell){
             if (cell.ymd == displayDate) {
