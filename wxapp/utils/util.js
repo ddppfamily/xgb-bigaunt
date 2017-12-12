@@ -52,9 +52,20 @@ const formatDateArr = (startDate, endDate) => {
 
   return arr
 }
+///yyyy-MM-dd  ，反解析年月日单独输出
+const compilerYmd = (ymd) => {
+  var arr = ymd.split('-')
+  return {
+    year: arr[0],
+    month: arr[1],
+    date: arr[2]
+  }
+}
+
 module.exports = {
   formatTime: formatTime,
   compareDate: compareDate,
   formatDate: formatDate,
-  formatDateArr: formatDateArr
+  formatDateArr: formatDateArr,
+  compilerYmd: compilerYmd
 }

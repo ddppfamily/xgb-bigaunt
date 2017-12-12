@@ -64,7 +64,9 @@ Page({
       endDesc: '结束',
       tip: '',
       show: false
-    }
+    },
+    ///第几次
+    index: 1
     
   },
   /**
@@ -146,10 +148,11 @@ Page({
   mock () {
     var base = {
       continueDays: 7,
+      gapDays: 25,
+      endDate: 2017-12-28,
       year: 2017,
       month: 10,
-      preMonthPause: 21,
-      gapDays: 25 
+      preMonthPause: 21
     }
     wx.setStorageSync('base', base)
   },
@@ -301,7 +304,7 @@ Page({
    }
   },
   /**
-   * 根据当前指定月份结束日期，获取下一个的月经第一天
+   * 根据当前指定月份结束日期，获取下一个的第一天
    */
   getNextFirst (endDate) {
     var base = wx.getStorageSync('base'),
@@ -312,51 +315,111 @@ Page({
     return Utils.formatDate(nextFirstObj,'yyyy-MM-dd')
   },
   /**
-   * 根据上个月结束时间和间隔天数，来推算本月开始，结束时间
+   * 传入上次基本信息，预测下一次信息
+   * 应该和当前月份无关，只有次数
+   * 默认把基本参考时间作为第0次
+   */
+  computeNext (base,index) {
+    // var preMonthPause = base.preMonthPause,
+    //     gapDays = base.gapDays,
+    //     continueDays = base.continueDays,
+    //     year = base.year,
+    //     month = base.month,
+    //     diffDays = ((currentDate.displayYear - year) * 12 + (currentDate.displayMonth - month)) * (gapDays + continueDays) - continueDays,
+    //     baseYMD = year + '-' + month + '-' + preMonthPause,
+    //     baseDate = new Date(baseYMD),
+    //     baseTimestamp = baseDate.getTime(),
+    //     startDateObj = new Date(baseTimestamp + diffDays * 24 * 60 * 60 * 1000),///根据上次计算，得出这次开始时间对象
+    //     endDateObj = new Date(startDateObj.getTime() + continueDays * 24 * 60 * 60 * 1000)
+    //     //new Date(baseTimestamp + (((currentDate.displayYear - year) * 12 + (this.data.displayMonth - month)) * (gapDays + continueDays)) * 24 * 60 * 60 * 1000),
+    //     startDate = Utils.formatDate(startDateObj, 'yyyy-MM-dd'),
+    //     endDate = Utils.formatDate(endDateObj, 'yyyy-MM-dd')
+        //////////////
+        var baseEndDate = base.endDate,
+          gapDays = base.gapDays,
+          baseEndDateObj = new Date(baseEndDate),
+          continueDays = base.continueDays,
+          endDateTimestamp = baseEndDateObj.getTime() + (gapDays + continueDays) * 24 * 60 * 60 * 1000 * index,
+          startDateTimestamp = endDateTimestamp - continueDays * 24 * 60 * 60 * 1000,
+          endDateObj = new Date(endDateTimestamp),
+          startDateObj = new Date(startDateTimestamp)
+
+        return {
+          startDate: Utils.formatDate(startDateObj, 'yyyy-MM-dd'),
+          endDate: Utils.formatDate(startDateObj, 'yyyy-MM-dd')
+        }
+
+  },
+  
+  /**
+   * 根据上次结束时间和间隔天数，来推算本次开始，结束时间，可能一个月出现两次
+   * 往前是push数据，根据当前月，来保留或删除之前的数据
    * 往前是推算（从本月开始），往后是接口记录数据
    */
-  compute () {
+  compute (index) {
     var base = wx.getStorageSync('base'),
-        preMonthPause = base.preMonthPause,
-        gapDays = base.gapDays,
-        continueDays = base.continueDays,
-        year = base.year,
-        month = base.month,
-        diffDays = ((this.data.displayYear - year) * 12 + (this.data.displayMonth - month)) * (gapDays + continueDays) - continueDays,
-        baseYMD = year + '-' + month + '-' + preMonthPause,
-        baseDate = new Date(baseYMD),
-        baseTimestamp = baseDate.getTime(),
-        computeDateObj = new Date(baseTimestamp + diffDays*24*60*60*1000),
-        endDateObj = new Date(baseTimestamp + (((this.data.displayYear - year) * 12 + (this.data.displayMonth - month)) * (gapDays + continueDays))* 24 * 60 * 60 * 1000),
-        startDate = Utils.formatDate(computeDateObj,'yyyy-MM-dd'),
-        endDate = Utils.formatDate(endDateObj,'yyyy-MM-dd'),
-        
-        ///开始日期，进行期，结束期，组成数组
+        dates = this.data.dates || [],
+        currentMonth = this.data.displayMonth,
+        newDates = []
       
-        dateArr = Utils.formatDateArr(startDate, endDate),
-        easyPregnancyTime
-        
+    ///根据上次参考时间，推算第一次出现时间
+    var computeDate1 = this.computeNext(base, index)
+    ///计算第一次持续时间区间
+    var computeDateRange1 = Utils.formatDateArr(computeDate1.startDate, computeDate1.endDate)
+    ///根据上次参考时间，继续推算下一次时间
+    var computeDate2 = this.computeNext(base, (index+1))
+    ///计算下一次持续时间区间
+    var computeDateRange2 = Utils.formatDateArr(computeDate2.startDate, computeDate2.endDate)
+
+    ///根据当前月，来保留或删除之前的历史数据
+    var  displayMonth = this.data.displayMonth
+    if (dates.length > 0) {
+      dates.forEach((item) => {
+        if (this.hasSameMonth(currentMonth, item)) {
+          newDates.push(item)
+        }
+      })
+    }
+    ///判断预测的区间，是否在当前月中，如果在当前月中，则加到newDates数组中
+    if (this.hasSameMonth(currentMonth, computeDateRange1)) {
+      newDates.push(computeDateRange1)
+    }
+    if (this.hasSameMonth(currentMonth, computeDateRange2)) {
+      newDates.push(computeDateRange2)
+    }
+  
+    var  easyPregnancyTime
+
     ///易孕期计算    
     easyPregnancyTime = this.getEasyPregnancyTime(endDate).easyPregnancyTime
 
-       this.setData({
+    this.setData({
          estimateStartDate: startDate,
          estimateEndDate: endDate,
          estimateDates: dateArr,
-         dates: dateArr,
+         dates: newDates,
          startDate: startDate,
          endDate: endDate,
          easyPregnancyTime: easyPregnancyTime
-       })
+    })
 
   },
   /**
+   * 查日期数组中，是否有同月的数据
+   */
+  hasSameMonth (month,arr) {
+    var month = parseInt(month) < 10 ? ('0' + parseInt(month)) : parseInt(month)
+
+        return arr.indexOf('-' + month + '-') > -1
+  },
+  /**
    * 循环日历，把状态加上，开始，持续，结束
+   * 一个月可能会有2次或者多次区间
    */
   addStatusCalender (arr,opts) {
     var startDate = opts.startDate,
         base = wx.getStorageSync('base'),
-        dates = opts.dates,//开始日期，结束日期的区间数组
+        dates = opts.dates,//开始日期，结束日期的区间数组，[[...],[...]]
         displayDate = this.data.displayDate,
         easyPregnancyTime = this.data.easyPregnancyTime
     // wx.showModal({
