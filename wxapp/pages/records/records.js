@@ -25,18 +25,18 @@ Page({
     endDate: 0,
     ////预测的周期数组
     estimateDates: [],
-    ////改动日期
+    ////区间日期
     dates: [],
     year_ping: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
     year_run: [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
     /**
-     * 排卵期计算方式
-     * 下次月经来潮的第1天算起，
+     * 排期计算方式
+     * 下次的第1天算起，
      * 倒数14天或减去14天就是排卵日，
-     * 排卵日及其前5天和后4天加在一起称为排卵期(容易受孕期)
+     * 排日及其前5天和后4天加在一起称为排期
      */
     ovulationDate: '',
-    easyPregnancyTime: [],///易孕期区间
+    easyPregnancyTime: [],///易期区间
     /**
      * [[1,2,3,4,5,6,7]]
      * 数组的数组，子数组代表一行，始终1号开始
@@ -44,8 +44,8 @@ Page({
      * {
      *   ymd: '',///年月日记录
      *   date: '',
-     *   status: '',//0代表安全期，1代表开始，2代表进行中，3代表结束，
-     *                4代表排卵期，5代表排卵日，6代表安全期
+     *   status: '',//0代表安全，1代表开始，2代表进行中，3代表结束，
+     *                4代表排期，5代表排日，6代表安全
      *   monthTag: '' ///-1代表上个月，0代表当前月，1代表下一月,
      *   selected: true|fasle //点击选中，默认当天选中
      * }
@@ -93,7 +93,7 @@ Page({
          displayYear: displayYear,
          displayMonth: displayMonth
        })
-       this.compute()
+       this.compute(index)
      }
     
      this.setCalender(displayYear, displayMonth)
@@ -108,10 +108,10 @@ Page({
     ////测试
     this.mock()
 
-    this.compute()
+    this.compute(1)
 
     this.setArr()
-    var date = this.data.dateData.join(',')
+   // var date = this.data.dateData.join(',')
     // wx.showModal({
     //   title: '提示',
     //   content: date,
@@ -149,9 +149,9 @@ Page({
     var base = {
       continueDays: 7,
       gapDays: 25,
-      endDate: 2017-12-28,
+      endDate: '2017-11-21',
       year: 2017,
-      month: 10,
+      month: 11,
       preMonthPause: 21
     }
     wx.setStorageSync('base', base)
@@ -199,7 +199,7 @@ Page({
     var year_run = this.data.year_run
     var week1 = date1.getDay()
     var dateArr = []
-    var dateData = []
+   // var dateData = []
     var tempArr = []
     var preYear = qyear - 1
     var preMonth = {}
@@ -230,7 +230,7 @@ Page({
         date: 0,
         selected: false
       })
-      dateData.push(preMonth.year + '-' + preMonth.month + '-' + preMonthDaysTemp)
+      //dateData.push(preMonth.year + '-' + preMonth.month + '-' + preMonthDaysTemp)
     
     }
     //本月
@@ -242,7 +242,7 @@ Page({
         date: i,
         selected: false
       })
-      dateData.push(qyear + '-' + qmonth + '-' + i)
+      //dateData.push(qyear + '-' + qmonth + '-' + i)
     }
     ///下个月
     for (var i = 0, len = nextDays; i < len;i++) {
@@ -253,11 +253,11 @@ Page({
         date: 0,
         selected: false
       })
-      dateData.push(qyear + '-' + (qmonth+1) + '-' + i)
+     // dateData.push(qyear + '-' + (qmonth+1) + '-' + i)
     }
   
     tempArr = tempArr.concat(qTempArr)
-    console.log(dateData)
+    
     ///分5或者6行
     while (tempArr.length > 0) {
       dateArr.push(tempArr.splice(0, 7))
@@ -266,17 +266,13 @@ Page({
     console.log(dateArr)
 
     this.setData({
-      dateArr: dateArr,
-      dateData: dateData
+      dateArr: dateArr
     })
 
-    this.addStatusCalender(dateArr, {
-      startDate: this.data.estimateStartDate,
-      dates: this.data.estimateDates
-    })
+    this.addStatusCalender(dateArr)
   },
   /**
-   * 排卵日,易孕期计算，传入下个月预测开始时间
+   * 排日,易期计算，传入下个月预测开始时间
    */
   getEasyPregnancyTime(endDate) {
     var nextFirstObj = new Date(this.getNextFirst(endDate)),
@@ -346,7 +342,7 @@ Page({
 
         return {
           startDate: Utils.formatDate(startDateObj, 'yyyy-MM-dd'),
-          endDate: Utils.formatDate(startDateObj, 'yyyy-MM-dd')
+          endDate: Utils.formatDate(endDateObj, 'yyyy-MM-dd')
         }
 
   },
@@ -388,18 +384,24 @@ Page({
       newDates.push(computeDateRange2)
     }
   
-    var  easyPregnancyTime
+    var  easyPregnancyTime = []
 
-    ///易孕期计算    
-    easyPregnancyTime = this.getEasyPregnancyTime(endDate).easyPregnancyTime
+    ///易期计算,也是数组
+    //循环新日期区间数组
+    newDates.forEach((dates) => {
+      var maxIndex = dates.length,
+          endDate = dates[maxIndex - 1]
+      easyPregnancyTime.push(this.getEasyPregnancyTime(endDate))    
+    })
+    
 
     this.setData({
-         estimateStartDate: startDate,
-         estimateEndDate: endDate,
-         estimateDates: dateArr,
+        // estimateStartDate: startDate,
+        // estimateEndDate: endDate,
+        // estimateDates: dateArr,
          dates: newDates,
-         startDate: startDate,
-         endDate: endDate,
+        // startDate: startDate,
+        // endDate: endDate,
          easyPregnancyTime: easyPregnancyTime
     })
 
@@ -408,66 +410,75 @@ Page({
    * 查日期数组中，是否有同月的数据
    */
   hasSameMonth (month,arr) {
-    var month = parseInt(month) < 10 ? ('0' + parseInt(month)) : parseInt(month)
+    var month = parseInt(month) < 10 ? ('0' + parseInt(month)) : parseInt(month),
+        rs = false
+       for(var i = 0, len = arr.length; i < len; i++) {
+         if (arr[i].indexOf('-' + month + '-') > -1) {
+           rs = true
+           break
+         }
+       }
 
-        return arr.indexOf('-' + month + '-') > -1
+        return rs
   },
   /**
    * 循环日历，把状态加上，开始，持续，结束
    * 一个月可能会有2次或者多次区间
+   * arr 日期数据
    */
-  addStatusCalender (arr,opts) {
-    var startDate = opts.startDate,
+  addStatusCalender (arr) {
+    var //startDate = opts.startDate,
         base = wx.getStorageSync('base'),
-        dates = opts.dates,//开始日期，结束日期的区间数组，[[...],[...]]
+        dates = this.data.dates,//开始日期，结束日期的区间数组，[[...],[...]]
         displayDate = this.data.displayDate,
-        easyPregnancyTime = this.data.easyPregnancyTime
-    // wx.showModal({
-    //   title: '提示',
-    //   content: easyPregnancyTime.join(','),
-    //   success: function (res) {
-    //     if (res.confirm) {
-    //       console.log('用户点击确定')
-    //     } else if (res.cancel) {
-    //       console.log('用户点击取消')
-    //     }
-    //   }
-    // })
+        _this = this
+
       arr.forEach(function(item){
           item.forEach(function(cell){
+
             if (cell.ymd == displayDate) {
                cell.selected = true
             }
-            ///当前日期属于例假期间
-            if (dates.indexOf(cell.ymd) > -1) {
-               //第一天
-               if (cell.ymd == dates[0]) {
-                 cell.status = 1
-               } else if (cell.ymd == dates[dates.length - 1]) {
-                 //结束日期
-                 cell.status = 3
-               } else {
-                 cell.status = 2
-               }
-               
-            } else if (easyPregnancyTime.indexOf(cell.ymd) > -1) {
-              wx.showToast({
-                title: cell.ymd,
-                icon: 'success',
-                duration: 2000
-              })
-              ///易孕期，排卵期
-              cell.status = 4
-              ///排卵日
-
-            }else {
-              cell.status =0
-            }
+            ///打状态标签
+            cell.status =  _this.addStatus2Date(cell.ymd, dates)
           })
       })
       this.setData({
         dateArr:arr
       })
+  },
+  /**
+   * 日期打状态标签
+   * date 某天
+   * dates 区间数组 [[...],[...]]
+   */
+  addStatus2Date (date,dates) {
+     var status = 0,
+         easyPregnancyTime = this.data.easyPregnancyTime
+
+     for (var i = 0, len = dates.length; i < len; i++) {
+       var range = dates[i]
+       ///当前日期属于期间
+       if (range.indexOf(date) > -1) {
+         //第一天
+         if (date == range[0]) {
+           status = 1
+         } else if (date == range[range.length - 1]) {
+           //结束日期
+           status = 3
+         } else {
+           status = 2
+         }
+       } else {
+         ///是否是在排期
+         if (easyPregnancyTime.indexOf(date) > -1) {
+            status = 4
+         }
+         
+       }
+     }
+    return status
+    //  cell.status = status
   },
   /**
    * 追溯历史，传入年月日
@@ -578,10 +589,7 @@ Page({
       dates: dataArr
     })
     ////重新刷新日历
-    this.addStatusCalender(this.data.dateArr, {
-      startDate: this.data.startDate,
-      dates: dataArr
-    })
+    this.addStatusCalender(this.data.dateArr)
     ////异步请求保存日期
     
   },
