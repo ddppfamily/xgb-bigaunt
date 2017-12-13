@@ -85,6 +85,9 @@ Page({
          displayYear: displayYear,
          displayMonth: displayMonth
        })
+       ///当index<1时候,就取历史数据
+       var index = this.data.index - 1
+       
      } else {
        ///下一个月
        displayYear = displayMonth === 12 ? displayYear + 1 : displayYear
@@ -93,6 +96,7 @@ Page({
          displayYear: displayYear,
          displayMonth: displayMonth
        })
+       var index = this.data.index + 1
        this.compute(index)
      }
     
@@ -316,21 +320,6 @@ Page({
    * 默认把基本参考时间作为第0次
    */
   computeNext (base,index) {
-    // var preMonthPause = base.preMonthPause,
-    //     gapDays = base.gapDays,
-    //     continueDays = base.continueDays,
-    //     year = base.year,
-    //     month = base.month,
-    //     diffDays = ((currentDate.displayYear - year) * 12 + (currentDate.displayMonth - month)) * (gapDays + continueDays) - continueDays,
-    //     baseYMD = year + '-' + month + '-' + preMonthPause,
-    //     baseDate = new Date(baseYMD),
-    //     baseTimestamp = baseDate.getTime(),
-    //     startDateObj = new Date(baseTimestamp + diffDays * 24 * 60 * 60 * 1000),///根据上次计算，得出这次开始时间对象
-    //     endDateObj = new Date(startDateObj.getTime() + continueDays * 24 * 60 * 60 * 1000)
-    //     //new Date(baseTimestamp + (((currentDate.displayYear - year) * 12 + (this.data.displayMonth - month)) * (gapDays + continueDays)) * 24 * 60 * 60 * 1000),
-    //     startDate = Utils.formatDate(startDateObj, 'yyyy-MM-dd'),
-    //     endDate = Utils.formatDate(endDateObj, 'yyyy-MM-dd')
-        //////////////
         var baseEndDate = base.endDate,
           gapDays = base.gapDays,
           baseEndDateObj = new Date(baseEndDate),
@@ -471,10 +460,13 @@ Page({
          }
        } else {
          ///是否是在排期
-         if (easyPregnancyTime.indexOf(date) > -1) {
-            status = 4
+         for (var j = 0, len = easyPregnancyTime.length; j < len; j++) {
+           var item = easyPregnancyTime[j]
+           if (item.easyPregnancyTime.indexOf(date) > -1) {
+             status = 4
+             break
+           }
          }
-         
        }
      }
     return status
