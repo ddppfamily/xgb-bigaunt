@@ -153,10 +153,10 @@ Page({
     var base = {
       continueDays: 7,
       gapDays: 25,
-      endDate: '2017-11-21',
+      endDate: '2017-11-01',
       year: 2017,
       month: 11,
-      preMonthPause: 21
+      preMonthPause: 1
     }
     wx.setStorageSync('base', base)
   },
@@ -464,6 +464,9 @@ Page({
            var item = easyPregnancyTime[j]
            if (item.easyPregnancyTime.indexOf(date) > -1) {
              status = 4
+             if (date == item.ovulationDate) {
+               status = 5
+             }
              break
            }
          }

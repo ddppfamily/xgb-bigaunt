@@ -64,6 +64,9 @@
 .calender-row .easy{
    color: #9933FF;
 }
+.calender-row .ovulation{
+   color: #FFCC00;
+}
  .calender-row .safe{
    color: #99CC00;
 } 

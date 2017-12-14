@@ -65,6 +65,12 @@
                   data-ymd='{{cell.ymd}}' 
                   bindtap='handleDateTap'>
                   {{cell.date}}</view>
+
+             <view wx:if="{{cell.status == 5}}" 
+                  class="currentDate ovulation selected" 
+                  data-ymd='{{cell.ymd}}' 
+                  bindtap='handleDateTap'>
+                  {{cell.date}}</view>     
           </block>
            <!--非当天  -->
            <block wx:if='{{cell.ymd != displayYMD}}'>
@@ -105,6 +111,13 @@
                   data-ymd='{{cell.ymd}}' 
                   bindtap='handleDateTap'>
                   {{cell.date}}</view>
+
+               <view wx:if="{{cell.status == 5}}" 
+                  class="currentDate ovulation" 
+                  data-ymd='{{cell.ymd}}' 
+                  bindtap='handleDateTap'>
+                  {{cell.date}}</view> 
+                          
            </block>
           
        </block>
