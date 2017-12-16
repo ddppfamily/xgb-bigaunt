@@ -40,7 +40,7 @@
                   data-ymd='{{cell.ymd}}'
                   data-status='{{cell.status}}'
                   bindtap='handleDateTap'>
-                  <i class="iconfont xgb-start"></i>{{cell.date}}</view>
+                  {{cell.date}}</view>
 
             <view wx:if="{{cell.status == 2}}" 
                   class="currentDate current continue selected" 
@@ -81,7 +81,7 @@
                   data-ymd='{{cell.ymd}}'
                   data-status='{{cell.status}}'
                   bindtap='handleDateTap'>
-                  <i class="iconfont xgb-start"></i>{{cell.date}}</view>
+                  {{cell.date}}</view>
 
             <view wx:if="{{cell.status == 2}}" 
                   class="currentDate continue current" 
@@ -126,7 +126,7 @@
                     data-ymd='{{cell.ymd}}' 
                     data-status='{{cell.status}}' 
                     bindtap='handleDateTap'>
-                    <i class="iconfont xgb-start"></i>{{cell.date}}</view>
+                    {{cell.date}}</view>
 
               <view wx:if="{{cell.status == 2}}" 
                     class='continue selected' 
@@ -139,7 +139,7 @@
                     data-ymd='{{cell.ymd}}' 
                     data-status='{{cell.status}}' 
                     bindtap='handleDateTap'>
-                    <i class="iconfont xgb-pause"></i>{{cell.date}}</view>
+                    {{cell.date}}</view>
 
               <view wx:if="{{cell.status == 4}}" 
                   class="currentDate easy selected" 
@@ -166,7 +166,7 @@
                     data-ymd='{{cell.ymd}}' 
                     data-status='{{cell.status}}' 
                     bindtap='handleDateTap'>
-                    <i class="iconfont xgb-start"></i>{{cell.date}}</view>
+                    {{cell.date}}</view>
 
               <view wx:if="{{cell.status == 2}}" 
                     class='continue' 
@@ -179,7 +179,7 @@
                     data-ymd='{{cell.ymd}}' 
                     data-status='{{cell.status}}' 
                     bindtap='handleDateTap'>
-                    <i class="iconfont xgb-pause"></i>{{cell.date}}</view>
+                    {{cell.date}}</view>
 
               <view wx:if="{{cell.status == 4}}" 
                   class="currentDate easy" 

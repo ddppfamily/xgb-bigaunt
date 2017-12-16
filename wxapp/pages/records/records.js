@@ -134,7 +134,9 @@ Page({
        var index = this.data.index + 1
        this.compute(index)
      }
-    
+     this.setData({
+       index: index
+     })
      this.setCalender(displayYear, displayMonth)
   },
 
@@ -395,7 +397,7 @@ Page({
   /**
    * 根据上次结束时间和间隔天数，来推算本次开始，结束时间，可能一个月出现两次
    * 往前是push数据，根据当前月，来保留或删除之前的数据
-   * 往前是推算（从本月开始），往后是接口记录数据
+   * 是推算
    */
   compute (index) {
     var base = wx.getStorageSync('base'),
@@ -411,7 +413,8 @@ Page({
     var computeDate2 = this.computeNext(base, (index+1))
     ///计算下一次持续时间区间
     var computeDateRange2 = Utils.formatDateArr(computeDate2.startDate, computeDate2.endDate)
-
+    console.log(computeDateRange1)
+    console.log(computeDateRange2)
     ///根据当前月，来保留或删除之前的历史数据
     var  displayMonth = this.data.displayMonth
     if (dates.length > 0) {
