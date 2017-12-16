@@ -12,11 +12,13 @@ Page({
     currentMonth: '',
     currentWeek: '',
     currentYMD: '',
+    currentStatus: '',
     displayDate: '',
     displayYear: '',
     displayMonth: '',
     displayWeek: '',
     displayYMD: '',
+    clickYMD: '',
     ////预测
     estimateStartDate: 0,
     estimateEndDate: 0,
@@ -45,13 +47,45 @@ Page({
      *   ymd: '',///年月日记录
      *   date: '',
      *   status: '',//0代表安全，1代表开始，2代表进行中，3代表结束，
-     *                4代表排期，5代表排日，6代表安全
+     *                4代表排期，5代表排日
      *   monthTag: '' ///-1代表上个月，0代表当前月，1代表下一月,
      *   selected: true|fasle //点击选中，默认当天选中
      * }
      */
     dateArr:[],
     dateData: [],
+    ////每个时期状态解释
+    statusMap : {
+      '0': {
+        'desc': '可以放心爱爱哦',
+        'name': '推算当日是安全期'
+      },
+      '1': {
+        'desc': '准备好带翅膀的巾巾，多注意保暖哦',
+        'name': '推算当日是月经开始'
+      },
+      '2': {
+        'desc': '不要生冷辛辣，多休息哦',
+        'name': '推算当日是月经期'
+      },
+      '3': {
+        'desc': '终于熬过了几天痛苦的日子',
+        'name': '推算当日是月经结束'
+      },
+      '4': {
+        'desc': '造人关键时机',
+        'name': '推算当日是排卵期'
+      },
+      '5': {
+        'desc': '造人关键时机',
+        'name': '推算当日是排卵日'
+      }
+    },
+    ////点击每个日期，出现下方的文本提示
+    currentDateTip: {
+      name: '',
+      desc: ''
+    },
     ///手动确定是否来了，或者是结束了
     submitBtn:false,
     ///手动确定模型
@@ -65,6 +99,7 @@ Page({
       tip: '',
       show: false
     },
+    tipVisible: false,
     ///第几次
     index: 1
     
@@ -115,6 +150,8 @@ Page({
     this.compute(1)
 
     this.setArr()
+
+    this.initDateTip()
    // var date = this.data.dateData.join(',')
     // wx.showModal({
     //   title: '提示',
@@ -129,11 +166,30 @@ Page({
     // })
   },
   /**
+   * 初始化选中提示
+   */
+  initDateTip () {
+    var ymd = this.data.currentDate,
+      status = this.data.currentStatus,
+      statusMap = this.data.statusMap,
+      name = statusMap[status].name,
+      desc = statusMap[status].desc,
+      dateArr = this.data.dateArr
+     this.setData({
+       tipVisible: true,
+       currentDateTip: {
+         name: name,
+         desc: desc
+       }
+     })
+  },
+  /**
    * 初始化显示日期和当前日期
    */
   initDate () {
     var date = this.getCurrentDate(new Date())
-    this.setData({
+  
+    this.setData({  
       currentDate: date.date,
       currentYear: date.year,
       currentMonth: date.month,
@@ -389,6 +445,7 @@ Page({
         // estimateEndDate: endDate,
         // estimateDates: dateArr,
          dates: newDates,
+         setDates: newDates,
         // startDate: startDate,
         // endDate: endDate,
          easyPregnancyTime: easyPregnancyTime
@@ -419,21 +476,26 @@ Page({
     var //startDate = opts.startDate,
         base = wx.getStorageSync('base'),
         dates = this.data.dates,//开始日期，结束日期的区间数组，[[...],[...]]
-        displayDate = this.data.displayDate,
+        currentYMD = this.data.currentYMD,
+        currentStatus = '',
         _this = this
 
       arr.forEach(function(item){
           item.forEach(function(cell){
 
-            if (cell.ymd == displayDate) {
-               cell.selected = true
-            }
             ///打状态标签
             cell.status =  _this.addStatus2Date(cell.ymd, dates)
+
+            if (cell.ymd == currentYMD) {
+              cell.selected = true
+              currentStatus = cell.status
+            }
+            
           })
       })
       this.setData({
-        dateArr:arr
+        dateArr:arr,
+        currentStatus: currentStatus
       })
   },
   /**
@@ -482,47 +544,34 @@ Page({
      
   },
   /**
-   * 点击日期，选中，可以手动开始和结束
+   * 点击日期,下方出现解释和注意事项
    */
   handleDateTap (e) {
      var ymd = e.currentTarget.dataset.ymd,
-         submitStartDate = this.data.handSubmit.submitStartDate,
-         submitEndDate = this.data.handSubmit.submitEndDate,
-         tip = ''
-
+       status = e.currentTarget.dataset.status,
+       statusMap = this.data.statusMap,
+       name = statusMap[status].name,
+       desc = statusMap[status].desc,
+       dateArr = this.data.dateArr
+        
      console.log(ymd)
-
-     ////如果是点击的日期就是已经设置过的开始或者结束日期
-     ////则需要置为是的状态，选择否，则取消此日期
-     if (ymd == submitStartDate || ymd == submitEndDate) {
-       this.setData({
-         submitBtn: true
-       })
-     } else {
-       this.setData({
-         submitBtn: false
-       })
-     }
-     ///出现手动开始或者结束按钮，如果已经有手动日期了，则出现结束日期
-     
-     if (submitStartDate) {
-       ///已经设置了手动开始
-       ////如果是点击的日期小于已经设置的开始日期，则还是继续开始日期
-       if (Utils.compareDate(submitStartDate,ymd)) {
-         tip = this.data.handSubmit.startDesc
-       } else {
-         tip = this.data.handSubmit.endDesc
-       }
-     } else {
-         tip = this.data.handSubmit.startDesc
-     }
+    //  for (var i = 0, len=dateArr.length; i < len; i++) {
+    //    var arr = dateArr[0]
+    //    for(var j = 0, len2 = arr.length; j < len2; j++) {
+    //      if (arr[j].ymd == ymd) {
+    //          arr[j].selected = true
+    //      }
+    //    }
+    //  }
 
      this.setData({
+       tipVisible: true,
        displayYMD: ymd,
-       'handSubmit.tip': tip,
-       'handSubmit.show': true
+       currentDateTip: {
+         name: name,
+         desc: desc
+       }
      })
-     
   },
   /**
    * 手动点击确定是开始还是结束

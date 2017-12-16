@@ -20,9 +20,12 @@
 .calender-row>view{
   background: #fff;
   border:2px solid #fff; 
-  margin:1rpx;
-  border-radius: 10rpx;
+  margin:8rpx;
+  /* border-radius: 10rpx; */
   color: #99CC00;
+  border-radius: 50%;
+  padding: 3rpx;
+  box-sizing: border-box;
 }
 .currentDate{
   color:crimson;
@@ -31,7 +34,7 @@
   background: #fff;
 }
 .calender-panel-cell{
-  background: #e1e1e1;
+  /* background: #e1e1e1; */
   padding:5rpx;
 }
 .calender-desp{
@@ -59,6 +62,10 @@
    border:2px solid #FFCCCC;
 }
 .calender-row .selected{
+   border:2px solid #efefef;
+   background: #efefef;
+}
+.calender-row .current{
    border:2px solid #CC0000;
 }
 .calender-row .easy{
@@ -104,4 +111,19 @@
 }
 .xgb-btn{
   background: #ff0000;
+}
+.calender-dayDesc{
+  border: 1px solid #FFCC33;
+  background: #fff;
+  border-radius: 10px;
+  padding: 5px;
+  margin:10px;
+  text-align: center;
+}
+.dayDesc-name{
+  font-size: 45rpx;
+  color:#333;
+}
+.dayDesc-desc{
+  font-size: 30rpx;
 }
