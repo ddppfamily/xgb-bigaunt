@@ -120,13 +120,13 @@ Page({
          displayYear: displayYear,
          displayMonth: displayMonth
        })
-       ///当index<1时候,就取历史数据
-       var index = this.data.index - 1
        
+       var index = this.data.index - 1
+       this.compute(index)
      } else {
        ///下一个月
        displayYear = displayMonth === 12 ? displayYear + 1 : displayYear
-       displayMonth = displayMonth === 12 ? 1 : ((displayMonth + 1) >= 10 ? (displayMonth + 1) : '0' + (displayMonth + 1))
+       displayMonth = displayMonth === 12 ? '01' : ((displayMonth + 1) >= 10 ? (displayMonth + 1) : '0' + (displayMonth + 1))
        this.setData({
          displayYear: displayYear,
          displayMonth: displayMonth
