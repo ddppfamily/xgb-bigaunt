@@ -403,7 +403,10 @@ Page({
     var base = wx.getStorageSync('base'),
         dates = this.data.dates || [],
         currentMonth = this.data.displayMonth,
-        newDates = []
+        currentYear = this.data.displayYear,
+        newDates = [],
+        computeDate,
+        index = 1
       
     ///根据上次参考时间，推算第一次出现时间
     var computeDate1 = this.computeNext(base, index)
@@ -413,6 +416,11 @@ Page({
     var computeDate2 = this.computeNext(base, (index+1))
     ///计算下一次持续时间区间
     var computeDateRange2 = Utils.formatDateArr(computeDate2.startDate, computeDate2.endDate)
+
+    do{
+      computeDate = this.computeNext(base, index)
+      index += 1
+    } while (Utils.isTheNext(computeDate.endDate, ))
     console.log(computeDateRange1)
     console.log(computeDateRange2)
     ///根据当前月，来保留或删除之前的历史数据
@@ -454,6 +462,12 @@ Page({
          easyPregnancyTime: easyPregnancyTime
     })
 
+  },
+  /**
+   * 根据初始配置，循环计算到本月，得出本月所预测的所有周期
+   */
+  computeAll () {
+     
   },
   /**
    * 查日期数组中，是否有同月的数据
