@@ -120,9 +120,7 @@ Page({
          displayYear: displayYear,
          displayMonth: displayMonth
        })
-       
-       var index = this.data.index - 1
-       this.compute(index)
+      
      } else {
        ///下一个月
        displayYear = displayMonth === 12 ? displayYear + 1 : displayYear
@@ -131,12 +129,10 @@ Page({
          displayYear: displayYear,
          displayMonth: displayMonth
        })
-       var index = this.data.index + 1
-       this.compute(index)
+      
      }
-     this.setData({
-       index: index
-     })
+  
+     this.compute()
      this.setCalender(displayYear, displayMonth)
   },
 
@@ -149,7 +145,7 @@ Page({
     ////测试
     this.mock()
 
-    this.compute(1)
+    this.compute()
 
     this.setArr()
 
@@ -399,52 +395,85 @@ Page({
    * 往前是push数据，根据当前月，来保留或删除之前的数据
    * 是推算
    */
-  compute (index) {
+  compute () {
     var base = wx.getStorageSync('base'),
-        dates = this.data.dates || [],
+        dates = [], //this.data.dates ||
         currentMonth = this.data.displayMonth,
         currentYear = this.data.displayYear,
+        displayYMD = this.data.displayYMD,
         newDates = [],
         computeDate,
-        index = 1
+        computeDateRange,
+        dateData = [],
+        computeTag = 'plus',
+        index = 0
       
     ///根据上次参考时间，推算第一次出现时间
-    var computeDate1 = this.computeNext(base, index)
-    ///计算第一次持续时间区间
-    var computeDateRange1 = Utils.formatDateArr(computeDate1.startDate, computeDate1.endDate)
+    // var computeDate1 = this.computeNext(base, index)
+    // ///计算第一次持续时间区间
+    // var computeDateRange1 = Utils.formatDateArr(computeDate1.startDate, computeDate1.endDate)
     ///根据上次参考时间，继续推算下一次时间
-    var computeDate2 = this.computeNext(base, (index+1))
-    ///计算下一次持续时间区间
-    var computeDateRange2 = Utils.formatDateArr(computeDate2.startDate, computeDate2.endDate)
+    // var computeDate2 = this.computeNext(base, (index+1))
+    // ///计算下一次持续时间区间
+    // var computeDateRange2 = Utils.formatDateArr(computeDate2.startDate, computeDate2.endDate)
+
+    ///如果是显示月份大于base月份，是加一
+    if (Utils.compareYM(displayYMD, base.endDate) == 1) {
+        
+    }
+    if (Utils.compareYM(displayYMD, base.endDate) == 0) {
+       index = 0
+    }
+    if (Utils.compareYM(displayYMD, base.endDate) == -1) {
+      computeTag = 'reduce'
+    }
 
     do{
+      console.log('computeTag ===', computeTag)
       computeDate = this.computeNext(base, index)
-      index += 1
-    } while (Utils.isTheNext(computeDate.endDate, ))
-    console.log(computeDateRange1)
-    console.log(computeDateRange2)
+      computeDateRange = Utils.formatDateArr(computeDate.startDate, computeDate.endDate)
+      ////
+      dateData.push(computeDateRange)
+      /////
+      if (Utils.isTheNext(computeDate.endDate, currentYear, currentMonth) == 0 || Utils.isTheNext(computeDate.startDate, currentYear, currentMonth) == 0) {
+        dates.push(computeDateRange)
+      }
+      ///加一
+      if (computeTag == 'plus') {
+        index += 1
+      } else {
+      ////显示月份小于base月份，是减一
+        index -= 1
+      }
+      
+      console.log('index ===',index)
+
+    } while (Utils.isTheNext(computeDate.endDate, currentYear, currentMonth) != 1 && Utils.isTheNext(computeDate.startDate, currentYear, currentMonth) != 1)
+
+    // console.log(computeDateRange1)
+    // console.log(computeDateRange2)
     ///根据当前月，来保留或删除之前的历史数据
-    var  displayMonth = this.data.displayMonth
-    if (dates.length > 0) {
-      dates.forEach((item) => {
-        if (this.hasSameMonth(currentMonth, item)) {
-          newDates.push(item)
-        }
-      })
-    }
+    // var  displayMonth = this.data.displayMonth
+    // if (dates.length > 0) {
+    //   dates.forEach((item) => {
+    //     if (this.hasSameMonth(currentMonth, item)) {
+    //       newDates.push(item)
+    //     }
+    //   })
+    // }
     ///判断预测的区间，是否在当前月中，如果在当前月中，则加到newDates数组中
-    if (this.hasSameMonth(currentMonth, computeDateRange1)) {
-      newDates.push(computeDateRange1)
-    }
-    if (this.hasSameMonth(currentMonth, computeDateRange2)) {
-      newDates.push(computeDateRange2)
-    }
+    // if (this.hasSameMonth(currentMonth, computeDateRange1)) {
+    //   newDates.push(computeDateRange1)
+    // }
+    // if (this.hasSameMonth(currentMonth, computeDateRange2)) {
+    //   newDates.push(computeDateRange2)
+    // }
   
     var  easyPregnancyTime = []
 
     ///易期计算,也是数组
     //循环新日期区间数组
-    newDates.forEach((dates) => {
+    dates.forEach((dates) => {
       var maxIndex = dates.length,
           endDate = dates[maxIndex - 1]
       easyPregnancyTime.push(this.getEasyPregnancyTime(endDate))    
@@ -455,20 +484,16 @@ Page({
         // estimateStartDate: startDate,
         // estimateEndDate: endDate,
         // estimateDates: dateArr,
-         dates: newDates,
-         setDates: newDates,
+          dates: dates,
+          setDates: dates,
+          dateData: dateData,
         // startDate: startDate,
         // endDate: endDate,
          easyPregnancyTime: easyPregnancyTime
     })
 
   },
-  /**
-   * 根据初始配置，循环计算到本月，得出本月所预测的所有周期
-   */
-  computeAll () {
-     
-  },
+ 
   /**
    * 查日期数组中，是否有同月的数据
    */

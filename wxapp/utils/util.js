@@ -61,17 +61,46 @@ const compilerYmd = (ymd) => {
     date: arr[2]
   }
 }
-////判断yyyy-MM-dd，是否是给定的月份中的之后的月份
+
+///对比年月,ym1 > ym2 返回1，相等 0，小于-1
+const compareYM = function (ym1,ym2) {
+  var ym1 = compilerYmd(ym1),
+      ym2 = compilerYmd(ym2),
+      y1 = ym1.year,
+      m1 = ym1.month,
+      y2 = ym2.year,
+      m2 = ym2.month
+  if (y1 == y2) {
+     if (m1 > m2) {
+       return 1
+     }
+     if (m1 == m2) {
+       return 0
+     }
+     if (m1 < m2) {
+       return -1
+     }
+  }
+  if(y1 > y2) {
+    return 1
+  } 
+
+  if (y1 < y2) {
+    return -1
+  }  
+}
+////判断yyyy-MM-dd，是否是给定的月份中
+///如果是下一个月了或者是下一年，则返回1
 ///1.年相同，比较月份
 ///2.年不同，比较年就可
 const isTheNext = (ymd,year,month) => {
-  var ymd1 = this.compilerYmd(ymd),
+  var ymd1 = compilerYmd(ymd),
     y = parseInt(ymd1.year),
     m = parseInt(ymd1.month),
     d = parseInt(ymd1.date)
 
   if (y == year) {
-     if (month > m) {
+     if (month < m) {
        return 1
      } else if(month == m) {
        return 0
@@ -90,5 +119,6 @@ module.exports = {
   formatDate: formatDate,
   formatDateArr: formatDateArr,
   compilerYmd: compilerYmd,
-  isTheNext: isTheNext
+  isTheNext: isTheNext,
+  compareYM: compareYM
 }
