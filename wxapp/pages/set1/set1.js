@@ -5,23 +5,24 @@ Page({
    * 页面的初始数据
    */
   data: {
-    startDate: '',
+    endDate: '',
     continueDays: '',
     gapDays:'',
     continueDaysArr: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],
-    gapDaysArr:[31,30,29,28,27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1]
+    gapDaysArr:[31,30,29,28,27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1],
+    nextVisible: false
   },
   /**
-   * 修改开始时间
+   * 修改结束时间
    */
   handleStartDateChangeTap: function (e) {
        var val = e.detail.value
        this.setData({
-         startDate: val
+         endDate: val
        })
   },
   /**
-   * 修改时长
+   * 修改持续天数
    */
   handleContinueDaysChangeTap: function (e) {
     var val = e.detail.value
@@ -30,7 +31,7 @@ Page({
     })
   },
   /**
-   * 修改周期
+   * 修改间隔天数
    */
   handleGapDaysChangeTap: function (e) {
     var val = e.detail.value
@@ -44,15 +45,28 @@ Page({
    * @return true/false
    */
   isInputComplete: function (e) {
-    var startDate = this.data.startDate,
+    var endDate = this.data.endDate,
         continueDays = this.data.continueDays,
         gapDays = this.data.gapDays
 
-    if (startDate && continueDays && gapDays) {
+    if (endDate && continueDays && gapDays) {
       return true
     } 
     
     return false   
+  },
+  /**
+   * 下一步
+   */
+  handleNextStep () {
+    var endDate = this.data.endDate,
+      continueDays = this.data.continueDays,
+      gapDays = this.data.gapDays
+    wx.setStorageSync('base', {
+      endDate: endDate,
+      continueDays: continueDays,
+      gapDays: gapDays
+    })
   },
   /**
    * 生命周期函数--监听页面加载

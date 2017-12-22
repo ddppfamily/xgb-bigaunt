@@ -104,42 +104,14 @@ Page({
     index: 1
     
   },
-  /**
-   * change ，前后月切换
-   */
-  change (e) {
-     var tag = e.currentTarget.dataset.tag,
-       displayYear = this.data.displayYear,
-       displayMonth = parseInt(this.data.displayMonth)
-     
-     if (tag === 'pre') {
-       ///上一个月
-       displayYear = displayMonth === 1 ? displayYear - 1 : displayYear
-       displayMonth = displayMonth === 1 ? 12 : ((displayMonth - 1) >= 10 ? (displayMonth - 1) : '0' + (displayMonth - 1))
-       this.setData({
-         displayYear: displayYear,
-         displayMonth: displayMonth
-       })
-      
-     } else {
-       ///下一个月
-       displayYear = displayMonth === 12 ? displayYear + 1 : displayYear
-       displayMonth = displayMonth === 12 ? '01' : ((displayMonth + 1) >= 10 ? (displayMonth + 1) : '0' + (displayMonth + 1))
-       this.setData({
-         displayYear: displayYear,
-         displayMonth: displayMonth
-       })
-      
-     }
   
-     this.compute()
-     this.setCalender(displayYear, displayMonth)
-  },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.isSetInitData()
+
     this.initDate()
 
     ////测试
@@ -162,6 +134,18 @@ Page({
     //     }
     //   }
     // })
+  },
+  /**
+   * 判断是否已经设置了初始化数据
+   */
+  isSetInitData () {
+     var initData = wx.getStorageSync('base')
+     if (!initData) {
+       wx.redirectTo({
+         url: '/set1/set1'
+       })
+       return 
+     }
   },
   /**
    * 初始化选中提示
@@ -213,6 +197,33 @@ Page({
       preMonthPause: 1
     }
     wx.setStorageSync('base', base)
+  },
+  /**
+   * change ，前后月切换
+   */
+  change(e) {
+    var tag = e.currentTarget.dataset.tag,
+      displayYear = this.data.displayYear,
+      displayMonth = parseInt(this.data.displayMonth)
+
+    if (tag === 'pre') {
+      ///上一个月
+      displayYear = displayMonth === 1 ? displayYear - 1 : displayYear
+      displayMonth = displayMonth === 1 ? 12 : ((displayMonth - 1) >= 10 ? (displayMonth - 1) : '0' + (displayMonth - 1))
+    } else {
+      ///下一个月
+      displayYear = displayMonth === 12 ? displayYear + 1 : displayYear
+      displayMonth = displayMonth === 12 ? '01' : ((displayMonth + 1) >= 10 ? (displayMonth + 1) : '0' + (displayMonth + 1))
+    }
+    this.setData({
+      displayYear: displayYear,
+      displayMonth: displayMonth,
+      displayYMD: displayYear + '-' + displayMonth
+    })
+
+    this.compute()
+    this.setCalender(displayYear, displayMonth)
+
   },
   /**
    * 某天的日期对象，包含，年，月，日，星期
@@ -395,7 +406,7 @@ Page({
    * 往前是push数据，根据当前月，来保留或删除之前的数据
    * 是推算
    */
-  compute () {
+  compute(computeTag) {
     var base = wx.getStorageSync('base'),
         dates = [], //this.data.dates ||
         currentMonth = this.data.displayMonth,
@@ -405,7 +416,7 @@ Page({
         computeDate,
         computeDateRange,
         dateData = [],
-        computeTag = 'plus',
+        // computeTag = 'plus',
         index = 0
       
     ///根据上次参考时间，推算第一次出现时间
@@ -418,37 +429,54 @@ Page({
     // var computeDateRange2 = Utils.formatDateArr(computeDate2.startDate, computeDate2.endDate)
 
     ///如果是显示月份大于base月份，是加一
-    if (Utils.compareYM(displayYMD, base.endDate) == 1) {
-        
-    }
-    if (Utils.compareYM(displayYMD, base.endDate) == 0) {
-       index = 0
-    }
-    if (Utils.compareYM(displayYMD, base.endDate) == -1) {
-      computeTag = 'reduce'
-    }
+    if (Utils.compareYM(displayYMD, base.endDate) == 1 || Utils.compareYM(displayYMD, base.endDate) == 0) {
+      if (Utils.compareYM(displayYMD, base.endDate) == 0) {
+        index = 0
 
-    do{
-      console.log('computeTag ===', computeTag)
-      computeDate = this.computeNext(base, index)
-      computeDateRange = Utils.formatDateArr(computeDate.startDate, computeDate.endDate)
-      ////
-      dateData.push(computeDateRange)
-      /////
-      if (Utils.isTheNext(computeDate.endDate, currentYear, currentMonth) == 0 || Utils.isTheNext(computeDate.startDate, currentYear, currentMonth) == 0) {
-        dates.push(computeDateRange)
       }
-      ///加一
-      if (computeTag == 'plus') {
+      do {
+        // console.log('computeTag ===', computeTag)
+        computeDate = this.computeNext(base, index)
+        computeDateRange = Utils.formatDateArr(computeDate.startDate, computeDate.endDate)
+        ////
+        dateData.push(computeDateRange)
+        /////
+        if (Utils.isTheNext(computeDate.endDate, currentYear, currentMonth) == 0 || Utils.isTheNext(computeDate.startDate, currentYear, currentMonth) == 0) {
+          dates.push(computeDateRange)
+        }
+        ///加一
         index += 1
-      } else {
-      ////显示月份小于base月份，是减一
-        index -= 1
-      }
-      
-      console.log('index ===',index)
+        
+        if (Utils.isTheNext(computeDate.endDate, currentYear, currentMonth) == 1 && Utils.isTheNext(computeDate.startDate, currentYear, currentMonth) == 1) {
+          break
+        }
 
-    } while (Utils.isTheNext(computeDate.endDate, currentYear, currentMonth) != 1 && Utils.isTheNext(computeDate.startDate, currentYear, currentMonth) != 1)
+      } while (true)
+    }
+   
+    if (Utils.compareYM(displayYMD, base.endDate) == -1) {
+      // 
+      do {
+        // console.log('computeTag ===', computeTag)
+        computeDate = this.computeNext(base, index)
+        computeDateRange = Utils.formatDateArr(computeDate.startDate, computeDate.endDate)
+        ////
+        dateData.push(computeDateRange)
+        /////
+        if (Utils.isTheNext(computeDate.endDate, currentYear, currentMonth) == 0 || Utils.isTheNext(computeDate.startDate, currentYear, currentMonth) == 0) {
+          dates.push(computeDateRange)
+        }
+      
+        index -= 1
+        console.log('index ===', index)
+        if (Utils.isTheNext(computeDate.endDate, currentYear, currentMonth) == -1 && Utils.isTheNext(computeDate.startDate, currentYear, currentMonth) == -1) {
+           break
+        }
+
+      } while (true)
+    }
+
+   
 
     // console.log(computeDateRange1)
     // console.log(computeDateRange2)

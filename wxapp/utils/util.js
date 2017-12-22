@@ -91,6 +91,7 @@ const compareYM = function (ym1,ym2) {
 }
 ////判断yyyy-MM-dd，是否是给定的月份中
 ///如果是下一个月了或者是下一年，则返回1
+////如果是上一个月，则返回-1
 ///1.年相同，比较月份
 ///2.年不同，比较年就可
 const isTheNext = (ymd,year,month) => {
@@ -101,15 +102,20 @@ const isTheNext = (ymd,year,month) => {
 
   if (y == year) {
      if (month < m) {
+       console.log(ymd, year, month,1)
        return 1
      } else if(month == m) {
+       console.log(ymd, year, month, 0)
        return 0
      } else {
+       console.log(ymd, year, month, -1)
        return -1
      }
   } else if (y < year) {
+    console.log(ymd, year, month, -1)
      return -1
   } else if (y  > year) {
+    console.log(ymd, year, month, -1)
     return 1
   } 
 }

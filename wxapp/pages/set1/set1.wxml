@@ -9,27 +9,29 @@
 
    <view class='ba-form'>
       <view class='ba-form-cell'>
-         <view class='ba-form-cell-header'><text>开始时间</text></view>
+         <view class='ba-form-cell-header'><text>上次结束时间</text></view>
          <view>
             <picker mode='date' 
                     bindchange='handleStartDateChangeTap'><text class='ba-input'>{{startDate}}</text></picker>
          </view>
       </view>
       <view  class='ba-form-cell'>
-         <view  class='ba-form-cell-header'><text>时长</text></view>
+         <view  class='ba-form-cell-header'><text>持续天数</text></view>
          <view>
               <picker mode='selector' 
                     bindchange='handleContinueDaysChangeTap' range='{{continueDaysArr}}'><text class='ba-input'>{{continueDays}}</text></picker>
          </view>
       </view>
       <view>
-         <view class='ba-form-cell-header'><text>周期</text></view>
+         <view class='ba-form-cell-header'><text>间隔天数</text></view>
          <view>
             <picker mode='selector' 
                     bindchange='handleGapDaysChangeTap' range='{{gapDaysArr}}'><text class='ba-input'>{{gapDays}}</text></picker>
          </view>
       </view>   
    </view>
+   <view wx:if="{{nextVisible === false}}">下一步</view>
+   <view wx:else bindtap='handleNextStep'>下一步</view>
 
 </view>
 
