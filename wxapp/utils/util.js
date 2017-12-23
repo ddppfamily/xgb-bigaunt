@@ -13,6 +13,13 @@ const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : '0' + n
 }
+///传入天数，基于参考天数计算日期
+const cDate = (date,days) => {
+   var dateObj1 = new Date(date),
+       cDateObj = new Date(dateObj1.getTime() + days*24*60*60*1000),
+       ymd = formatDate(cDateObj,'yyyy-MM-dd')
+   return ymd
+}
 ///日期比较
 ////yyyy-MM-dd
 ////前比后大，返回true
@@ -126,5 +133,6 @@ module.exports = {
   formatDateArr: formatDateArr,
   compilerYmd: compilerYmd,
   isTheNext: isTheNext,
-  compareYM: compareYM
+  compareYM: compareYM,
+  cDate: cDate
 }

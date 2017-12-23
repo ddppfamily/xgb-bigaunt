@@ -1,8 +1,10 @@
 <!--records.wxml-->
 <view class='calender-change'>
+  <image class='userLogo' src='{{userInfo.avatarUrl}}'></image>
   <text bindtap='change' data-tag='pre' class='iconfont xgb-arrow-left'></text>
   <text class='calender-change-date'>{{displayYear}} - {{displayMonth}}</text>
   <text bindtap='change' data-tag='next' class='iconfont xgb-arrow-right'></text>
+  <navigator url="/pages/set/set" class='go-set'>配置</navigator>
 </view>
 <view class='calender-panel'>
 <view class='calender-header'>
@@ -210,11 +212,11 @@
 </block>
 <!--注释区域-->
 <view class='calender-desp'>
-   <!-- <view>月经期</view>
-   <view>预测期</view>
-   <view>安全期</view>
-   <view>易孕期</view>
-   <view>排卵日</view> -->
+   <view class='tag-menstrual'><text class='tag'></text>月经期</view>
+   <!-- <view><text class='tag'></text>预测期</view> -->
+   <view class='tag-safe'><text class='tag'></text>安全期</view>
+   <view class='tag-easy'><text class='tag'></text>排卵期</view>
+   <view class='tag-ovulation'><text class='tag'></text>排卵日</view> 
 </view>
 </view>
 </view>

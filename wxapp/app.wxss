@@ -13,7 +13,7 @@
 } 
 page{
   height:100%;
-  /* background: #ee816d; */
+   background: #ee816d; 
   font-size:36rpx;
   color:#666;
 }
@@ -43,11 +43,11 @@ picker{
   height:40rpx;
 }
 .ba-input{
-  height:40rpx;
+  /* height:40rpx; */
  width:100%;
  display:inline-block;
   background: #efefef;
-  font-size:25rpx;
+  font-size:32rpx;
 }
 .ba-progress{
 

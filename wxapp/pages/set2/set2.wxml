@@ -5,26 +5,26 @@
       <view class='ba-progress-cell'>1</view>
       <view class='ba-progress-cell current'>2</view>
    </view>
-   <view class='ba-header'><text>----请设置2----</text></view>
+   <view class='ba-header'><text>----设置2----</text></view>
 
    <view class='ba-form'>
       <view class='ba-form-cell'>
-         <view class='ba-form-cell-header'><text>规律吗</text></view>
+         <view class='ba-form-cell-header'><text>您的月经规律吗？</text></view>
          <view class='ba-form-cell-select'>
            <block  wx:for='{{regularity.options}}'>
               <view bindtap='handleRegularityTap' 
                  wx:if='{{regularity.value === item.value}}'
                  data-value= '{{item.value}}'  
-                 class='checked'>{{item.label}}</view> 
+                 class='checked'><text>{{item.label}}</text></view> 
               <view bindtap='handleRegularityTap' 
                  wx:else 
-                 data-value= '{{item.value}}' >{{item.label}}</view> 
+                 data-value= '{{item.value}}' ><text>{{item.label}}</text></view> 
            </block>
           
          </view>
       </view>
       <view  class='ba-form-cell'>
-         <view  class='ba-form-cell-header'><text>程度</text></view>
+         <view  class='ba-form-cell-header'><text>您来姨妈会是痛经吗？</text></view>
          <view>
                <view class='ba-form-cell-select'>
                   <block  wx:for='{{level.options}}'>
@@ -41,7 +41,7 @@
          </view>
       </view>
       <view>
-         <view class='ba-form-cell-header'><text>周期</text></view>
+         <view class='ba-form-cell-header'><text>经期到来前，您有过胸部胀痛，心情烦躁，长逗，腰酸等症状吗？</text></view>
          <view>
            <view class='ba-form-cell-select'>
                   <block  wx:for='{{symptom.options}}'>

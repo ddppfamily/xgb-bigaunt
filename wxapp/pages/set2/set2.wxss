@@ -12,6 +12,11 @@ height:22px;
 position:relative;
 
 }
+.ba-form-cell-select>view>text{
+  display: inline-block;
+  vertical-align: middle;
+  line-height:1;
+}
 .ba-form-cell-select>view{
   display: inline-block;
   width:100rpx;

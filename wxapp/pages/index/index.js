@@ -28,6 +28,9 @@ Page({
       })
   },
   onLoad: function () {
+
+    this.isSetInitData()
+
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -52,6 +55,22 @@ Page({
             hasUserInfo: true
           })
         }
+      })
+    }
+  },
+  /**
+   * 判断是否已经设置了初始化数据
+   */
+  isSetInitData() {
+    var initData = wx.getStorageSync('base')
+    if (initData && initData.endDate) {
+      wx.redirectTo({
+        url: '/pages/records/records'
+      })
+      
+    } else {
+      wx.redirectTo({
+        url: '/pages/set1/set1'
       })
     }
   },

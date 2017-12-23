@@ -14,6 +14,27 @@ Page({
     nextVisible: false
   },
   /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+     this.initData()
+     if (this.isInputComplete()) {
+       this.handleDisplayNext()
+     }
+  },
+  /**
+   * 初始化数据
+   */
+  initData () {
+    var base = wx.getStorageSync('base')
+    this.setData({
+      endDate: base.endDate,
+      continueDays: base.continueDays,
+      period: base.period,
+      gapDays: base.gapDays
+    })
+  },
+  /**
    * 修改结束时间
    */
   handleStartDateChangeTap: function (e) {
@@ -38,7 +59,7 @@ Page({
     }
   },
   /**
-   * 修改周期天数
+   * 修改间隔天数
    */
   handleGapDaysChangeTap: function (e) {
     var val = e.detail.value
@@ -61,7 +82,7 @@ Page({
    * 检查所有的项目已经填写完整
    * @return true/false
    */
-  isInputComplete: function (e) {
+  isInputComplete: function () {
     var endDate = this.data.endDate,
         continueDays = this.data.continueDays,
         period = this.data.period
@@ -80,28 +101,19 @@ Page({
       continueDays = this.data.continueDays,
       period = this.data.period,
       gapDays = this.data.period - continueDays
-       
-
-    this.setData({
-      gapDays: gapDays
-    })  
-
     wx.setStorageSync('base', {
       endDate: endDate,
       continueDays: continueDays,
       gapDays: gapDays,
       period: period
     })
+    ////peizhi
+    
     wx.navigateTo({
-      url: '/pages/set2/set2'
+      url: '/pages/records/records'
     })
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
   
-  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

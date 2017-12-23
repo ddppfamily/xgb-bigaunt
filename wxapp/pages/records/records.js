@@ -1,12 +1,13 @@
 // records.js
 const Utils = require('../../utils/util.js')
-
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    userInfo: '',
     currentDate: '',
     currentYear: '',
     currentMonth: '',
@@ -110,42 +111,28 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.isSetInitData()
-
+    
+    this.getUserInfo()
+    
     this.initDate()
 
     ////测试
-    this.mock()
+    // this.mock()
 
     this.compute()
 
     this.setArr()
 
     this.initDateTip()
-   // var date = this.data.dateData.join(',')
-    // wx.showModal({
-    //   title: '提示',
-    //   content: date,
-    //   success: function (res) {
-    //     if (res.confirm) {
-    //       console.log('用户点击确定')
-    //     } else if (res.cancel) {
-    //       console.log('用户点击取消')
-    //     }
-    //   }
-    // })
+   
   },
   /**
-   * 判断是否已经设置了初始化数据
+   * 用户信息
    */
-  isSetInitData () {
-     var initData = wx.getStorageSync('base')
-     if (!initData) {
-       wx.redirectTo({
-         url: '/set1/set1'
-       })
-       return 
-     }
+  getUserInfo () {
+      this.setData({
+        userInfo: app.globalData.userInfo
+      })
   },
   /**
    * 初始化选中提示
@@ -274,20 +261,21 @@ Page({
     var preMonth = {}
     var year = year_ping
     var qTempArr = []
-    var qmonth = parseInt(qmonth)
+    var qmonth1 = parseInt(qmonth)
 
     if (this.isRunYear(qyear)) {
       year = year_run
     }
     
-    var maxDays = year[qmonth - 1]///当前指定月的天数
+    var maxDays = year[qmonth1 - 1]///当前指定月的天数
     ///本月最后一天周几
     var lastDayObj = new Date(qyear + '-' + qmonth + '-' + maxDays)
     var lastDayWeek = lastDayObj.getDay()
     var nextDays = 6 - lastDayWeek  ///需要填充的天数
+    
     ///上个月
-    preMonth.month = qmonth == 1 ? 12 : qmonth - 1
-    preMonth.year = qmonth == 1 ? qyear - 1 : qyear
+    preMonth.month = qmonth1 == 1 ? 12 : qmonth1 - 1
+    preMonth.year = qmonth1 == 1 ? qyear - 1 : qyear
     preMonth.days = year[preMonth.month - 1]
      var preMonthDaysTemp = preMonth.days
     ///先存上一个月
@@ -305,7 +293,7 @@ Page({
     //本月
     for (var i = 1, len = (maxDays + 1); i < len;i++) {
       qTempArr.push({
-        ymd: qyear + '-' + (qmonth >= 10 ? qmonth : ('0' + qmonth)) + '-' + (i >= 10 ? i : ('0' + i)),
+        ymd: qyear + '-' + (qmonth1 >= 10 ? qmonth1 : ('0' + qmonth1)) + '-' + (i >= 10 ? i : ('0' + i)),
         monthTag: 0,
         status: 0,
         date: i,
@@ -419,15 +407,7 @@ Page({
         // computeTag = 'plus',
         index = 0
       
-    ///根据上次参考时间，推算第一次出现时间
-    // var computeDate1 = this.computeNext(base, index)
-    // ///计算第一次持续时间区间
-    // var computeDateRange1 = Utils.formatDateArr(computeDate1.startDate, computeDate1.endDate)
-    ///根据上次参考时间，继续推算下一次时间
-    // var computeDate2 = this.computeNext(base, (index+1))
-    // ///计算下一次持续时间区间
-    // var computeDateRange2 = Utils.formatDateArr(computeDate2.startDate, computeDate2.endDate)
-
+  
     ///如果是显示月份大于base月份，是加一
     if (Utils.compareYM(displayYMD, base.endDate) == 1 || Utils.compareYM(displayYMD, base.endDate) == 0) {
       if (Utils.compareYM(displayYMD, base.endDate) == 0) {
@@ -476,34 +456,17 @@ Page({
       } while (true)
     }
 
-   
-
-    // console.log(computeDateRange1)
-    // console.log(computeDateRange2)
-    ///根据当前月，来保留或删除之前的历史数据
-    // var  displayMonth = this.data.displayMonth
-    // if (dates.length > 0) {
-    //   dates.forEach((item) => {
-    //     if (this.hasSameMonth(currentMonth, item)) {
-    //       newDates.push(item)
-    //     }
-    //   })
-    // }
-    ///判断预测的区间，是否在当前月中，如果在当前月中，则加到newDates数组中
-    // if (this.hasSameMonth(currentMonth, computeDateRange1)) {
-    //   newDates.push(computeDateRange1)
-    // }
-    // if (this.hasSameMonth(currentMonth, computeDateRange2)) {
-    //   newDates.push(computeDateRange2)
-    // }
-  
     var  easyPregnancyTime = []
 
     ///易期计算,也是数组
     //循环新日期区间数组
+    ///本次的之前也要计算
     dates.forEach((dates) => {
       var maxIndex = dates.length,
-          endDate = dates[maxIndex - 1]
+          endDate = dates[maxIndex - 1],
+          startDate = dates[0],
+          preEndDate = Utils.cDate(startDate,-base.gapDays)
+      easyPregnancyTime.push(this.getEasyPregnancyTime(preEndDate))       
       easyPregnancyTime.push(this.getEasyPregnancyTime(endDate))    
     })
     
@@ -592,16 +555,20 @@ Page({
          }
        } else {
          ///是否是在排期
-         for (var j = 0, len = easyPregnancyTime.length; j < len; j++) {
-           var item = easyPregnancyTime[j]
-           if (item.easyPregnancyTime.indexOf(date) > -1) {
-             status = 4
-             if (date == item.ovulationDate) {
-               status = 5
+        
+         easyPregnancyTime.forEach(function (easyPregnancyTime) {
+           var item = easyPregnancyTime.easyPregnancyTime
+           if (status == 0) {
+             if (item.indexOf(date) > -1) {
+                 status = 4
+                 if (date == easyPregnancyTime.ovulationDate) {
+                 status = 5
+               }
              }
-             break
            }
-         }
+            
+         })
+         
        }
      }
     return status

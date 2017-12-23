@@ -1,4 +1,14 @@
 /* records.wxss */
+.userLogo{
+  width:60rpx;
+height:60rpx;
+float:left;
+border-radius:30rpx;
+
+}
+.xgb-arrow-left,.xgb-arrow-right{
+  padding:10rpx;
+}
 .calender-change{
   text-align: center;
   padding:20rpx;
@@ -126,4 +136,39 @@
 }
 .dayDesc-desc{
   font-size: 30rpx;
+}
+.tag{
+  width: 20rpx;
+  height:20rpx;
+  border-radius: 10rpx;
+  margin-right:10rpx;
+  display: inline-block;
+}
+.tag-menstrual{
+  color:#FFCCCC;
+}
+.tag-menstrual .tag{
+  background:#FFCCCC; 
+}
+.tag-safe{
+  color:#99CC00;
+}
+.tag-safe .tag{
+  background: #99CC00;
+}
+.tag-easy{
+  color:#9933FF;
+}
+.tag-easy .tag{
+  background:#9933FF; 
+}
+.tag-ovulation{
+  color:#FFCC00;
+}
+.tag-ovulation .tag{
+  background: #FFCC00;
+}
+.go-set{
+  display: inline-block;
+  float: right;
 }
