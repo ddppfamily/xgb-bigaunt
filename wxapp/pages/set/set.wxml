@@ -26,10 +26,10 @@
       </view>   
    </view>
    <view wx:if="{{nextVisible === false}}" class="btn-container">
-      <text class="disabled">下一步</text>
+      <text class="disabled">保存</text>
       </view>
    <view wx:else bindtap='handleNextStep' class="btn-container" >
-      <text class="abled">下一步</text>
+      <text class="abled">保存</text>
    </view>
 
 </view>

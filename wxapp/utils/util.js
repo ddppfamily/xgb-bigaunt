@@ -61,12 +61,15 @@ const formatDateArr = (startDate, endDate) => {
 }
 ///yyyy-MM-dd  ，反解析年月日单独输出
 const compilerYmd = (ymd) => {
-  var arr = ymd.split('-')
-  return {
-    year: arr[0],
-    month: arr[1],
-    date: arr[2]
+  if (ymd) {
+    var arr = ymd.split('-')
+    return {
+      year: arr[0],
+      month: arr[1],
+      date: arr[2]
+    }
   }
+  
 }
 
 ///对比年月,ym1 > ym2 返回1，相等 0，小于-1

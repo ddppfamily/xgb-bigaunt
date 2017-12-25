@@ -136,7 +136,7 @@ Page({
       },
       success: function (res) {
         ///跳转
-        wx.redirectTo({
+        wx.reLaunch({
           url: '/pages/records/records'
         })
       }

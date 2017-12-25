@@ -1,6 +1,8 @@
 <!--records.wxml-->
 <view class='calender-change'>
-  <image class='userLogo' src='{{userInfo.avatarUrl}}'></image>
+  <image class='userLogo' 
+         src='{{userInfo.avatarUrl}}' 
+         bindtap='bindTapClear'></image>
   <text bindtap='change' data-tag='pre' class='iconfont xgb-arrow-left'></text>
   <text class='calender-change-date'>{{displayYear}} - {{displayMonth}}</text>
   <text bindtap='change' data-tag='next' class='iconfont xgb-arrow-right'></text>
@@ -55,7 +57,7 @@
                   data-ymd='{{cell.ymd}}' 
                   data-status='{{cell.status}}' 
                   bindtap='handleDateTap'>
-                  <i class="iconfont xgb-pause"></i>{{cell.date}}</view>
+                  {{cell.date}}</view>
              <view wx:if="{{cell.status == 4}}" 
                   class="currentDate current easy selected" 
                   data-ymd='{{cell.ymd}}' 
@@ -96,7 +98,7 @@
                   data-ymd='{{cell.ymd}}' 
                   data-status='{{cell.status}}' 
                   bindtap='handleDateTap'>
-                  <i class="iconfont xgb-pause"></i>{{cell.date}}</view>
+                  {{cell.date}}</view>
              <view wx:if="{{cell.status == 4}}" 
                   class="currentDate easy current" 
                   data-ymd='{{cell.ymd}}' 

@@ -109,7 +109,7 @@ Page({
     })
     ////peizhi
     
-    wx.navigateTo({
+    wx.reLaunch({
       url: '/pages/records/records'
     })
   },

@@ -40,7 +40,7 @@ page{
   color:#999;
 }
 picker{
-  height:40rpx;
+  height:50rpx;
 }
 .ba-input{
   /* height:40rpx; */

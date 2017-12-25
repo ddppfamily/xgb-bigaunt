@@ -41,7 +41,7 @@
          </view>
       </view>
       <view>
-         <view class='ba-form-cell-header'><text>经期到来前，您有过胸部胀痛，心情烦躁，长逗，腰酸等症状吗？</text></view>
+         <view class='ba-form-cell-header'><text>经期到来前，您有过胸部胀痛，心情烦躁，长痘，腰酸等症状吗？</text></view>
          <view>
            <view class='ba-form-cell-select'>
                   <block  wx:for='{{symptom.options}}'>
