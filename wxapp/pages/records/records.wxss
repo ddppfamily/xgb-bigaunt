@@ -7,16 +7,20 @@ border-radius:30rpx;
 
 }
 .xgb-arrow-left,.xgb-arrow-right{
-  padding:10rpx;
+  padding:5rpx;
+  color:#fc6c9d;
+  border-radius: 50%;
+  background: #fff;
 }
 .calender-change{
   text-align: center;
   padding:20rpx;
-  background:#fff;
-  border-bottom:3px solid #e1e1e1;
+  background:-webkit-gradient(linear, 0 0, 100% 0, from(#fc6c9d), to(#faafa8));
+  /* border-bottom:3px solid #e1e1e1; */
+  color:#fff;
 }
 .calender-change-date{
-  border:1px solid #e1e1e1;
+  /* border:1px solid #e1e1e1; */
   padding:10rpx 20rpx;
 }
 .calender-header,.calender-row,.calender-desp{
@@ -30,12 +34,13 @@ border-radius:30rpx;
 .calender-row>view{
   background: #fff;
   border:2px solid #fff; 
-  margin:8rpx;
+  margin:8rpx 0;
   /* border-radius: 10rpx; */
-  color: #99CC00;
+  /* color: #99CC00; */
   border-radius: 50%;
   padding: 3rpx;
   box-sizing: border-box;
+  position: relative;
 }
 .currentDate{
   color:crimson;
@@ -47,45 +52,44 @@ border-radius:30rpx;
   /* background: #e1e1e1; */
   padding:5rpx;
 }
-.calender-desp{
-  background: #fff;
-  margin:5rpx;
-}
+
 
 .calender-premonth{
   color:#e1e1e1;
 }
 
-.calender-row .start{
-  color: #CC0000;
-  background: #FFCCCC;
-  border:2px solid #FFCCCC;
+.calender-row .start,.calender-row .start .xgb-inner-circle{
+  /* color: #CC0000; */
+  background: #ffd98c;
+   /* border:2px solid #FFCCCC;  */
 }
-.calender-row .continue{
-  color: #CC3333;
-  background: #FFCCCC;
-  border:2px solid #FFCCCC;
-}
-.calender-row .pause{
-   color: #CC6633;
-   background: #FFCCCC;
-   border:2px solid #FFCCCC;
+
+ .calender-row .continue,.calender-row .continue .xgb-inner-circle{
+  /* color: #CC3333; */
+  background: #ffd98c;
+  /* border:2px solid #FFCCCC;  */
+} 
+ .calender-row .pause,.calender-row .pause .xgb-inner-circle{
+   /* color: #CC6633; */
+   background: #ffd98c;
+   /* border:2px solid #FFCCCC;  */
 }
 .calender-row .selected{
-   border:2px solid #efefef;
-   background: #efefef;
+   /* border:2px solid #efefef;
+   background: #efefef; */
 }
-.calender-row .current{
+/* .calender-row .current{
    border:2px solid #CC0000;
-}
+} */
 .calender-row .easy{
    color: #9933FF;
 }
 .calender-row .ovulation{
    color: #FFCC00;
 }
- .calender-row .safe{
-   color: #99CC00;
+ .calender-row .safe,.calender-row .safe .xgb-inner-circle{
+   /* color: #99CC00; */
+   background: #6accc0;
 } 
 .calender-row .submit-start{
   color: #fff;
@@ -123,20 +127,46 @@ border-radius:30rpx;
   background: #ff0000;
 }
 .calender-dayDesc{
-  border: 1px solid #FFCC33;
+  border-top: 1px solid #ffeaed;
   background: #fff;
-  border-radius: 10px;
-  padding: 5px;
+  /* border-radius: 10px; */
+  padding: 15px;
   margin:10px;
   text-align: center;
 }
+.calender-dayDesc-block{
+  color:#fff;
+  /* padding: 10rpx; */
+  background: #6accc0;
+  border-radius: 40px;
+}
+.calender-dayDesc-outer{
+  /* opacity: 0.5; */
+  background: rgba(255, 255, 255, 0.5);
+  position: relative;
+  padding:4px;
+  border-radius:30px;
+}
+.calender-dayDesc-inner{
+  background: #6accc0;
+  border-radius:25px;
+  position: relative;
+}
 .dayDesc-name{
   font-size: 45rpx;
-  color:#333;
+  /* color:#333; */
+  opacity: 1;
 }
 .dayDesc-desc{
   font-size: 30rpx;
 }
+.calender-desp{
+  box-shadow: 0 5px 5px #ffeaed inset;
+  background: #fff;
+  padding-top:10px;
+  /* margin:5rpx; */
+}
+
 .tag{
   width: 20rpx;
   height:20rpx;
@@ -171,4 +201,42 @@ border-radius:30rpx;
 .go-set{
   display: inline-block;
   float: right;
+}
+.xgb-status{
+  position: absolute;
+  width:5px;
+  box-sizing: border-box;
+  height:5px;
+  border-radius: 50%;
+  background: #e1e1e1;
+  left:50%;
+  bottom:-10rpx;
+  margin-left:-2px;  
+}
+
+.xgb-outer-circle{
+  /* padding:3px; */
+  background:#fff;
+  border-radius:50%;
+  display:inline-block;
+}
+.xgb-inner-circle{
+  padding:1rpx;
+  border-radius: 50%;
+  width:25px;
+  height:25px;
+  line-height:25px;
+  display:inline-block;
+}
+.selected .xgb-outer-circle{
+  /* background:#324567; */
+}
+.selected .xgb-inner-circle{
+  /* background: green; */
+  color:#fff;
+}
+.selected .xgb-inner-mask{
+  background: rgba(255, 255, 255, 0.5);
+  border-radius:50%;
+  padding:3px;
 }

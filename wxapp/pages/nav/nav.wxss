@@ -1,0 +1,21 @@
+/* nav.wxss */
+page{
+  height:100%;
+   background: #fff; 
+  font-size:36rpx;
+  color:#666;
+}
+.xgb-grid{
+  display: flex;
+}
+.xgb-grid view{
+  flex:1;
+  text-align: center;
+}
+.xgb-grid view image{
+  width:100rpx;
+  height:100rpx;
+}
+.xgb-grid view navigator {
+  padding:5rpx;
+}

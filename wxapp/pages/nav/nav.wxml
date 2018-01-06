@@ -1,0 +1,16 @@
+<!--nav.wxml-->
+<view class='xgb-grid'>
+   <view>
+     <navigator url=''>
+       <image src=''></image>
+       <view>孕检安排</view>
+     </navigator> 
+    </view>
+   <view>aaaa</view>
+   <view>aaaa</view>  
+</view>
+<view class='xgb-grid'>
+   <view>aaaa</view>
+   <view>aaaa</view>
+   <view>aaaa</view> 
+</view>

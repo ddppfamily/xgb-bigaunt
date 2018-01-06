@@ -131,6 +131,7 @@ const isTheNext = (ymd,year,month) => {
 }
 module.exports = {
   formatTime: formatTime,
+  formatNumber: formatNumber,
   compareDate: compareDate,
   formatDate: formatDate,
   formatDateArr: formatDateArr,

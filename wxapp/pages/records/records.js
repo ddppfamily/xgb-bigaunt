@@ -187,7 +187,7 @@ Page({
    * 初始化选中提示
    */
   initDateTip () {
-    var ymd = this.data.currentDate,
+    var ymd = this.data.currentYMD,
       status = this.data.currentStatus,
       statusMap = this.data.statusMap,
       name = statusMap[status].name,
@@ -205,18 +205,19 @@ Page({
    * 初始化显示日期和当前日期
    */
   initDate () {
-    var date = this.getCurrentDate(new Date())
+    var dateObj = new Date(),
+      date = this.getCurrentDate(dateObj)
   
     this.setData({  
-      currentDate: date.date,
+      currentDate: Utils.formatNumber(date.date),
       currentYear: date.year,
-      currentMonth: date.month,
+      currentMonth: Utils.formatNumber(date.month),
       currentWeek: date.week,
-      currentYMD: date.year + '-' + date.month + '-' + date.date,
-      displayYMD: date.year + '-' + date.month + '-' + date.date,
-      displayDate: date.date,
+      currentYMD: Utils.formatDate(dateObj,'yyyy-MM-dd'),
+      displayYMD: Utils.formatDate(dateObj, 'yyyy-MM-dd'),
+      displayDate: Utils.formatNumber(date.date),
       displayYear: date.year,
-      displayMonth: date.month,
+      displayMonth: Utils.formatNumber(date.month),
       displayWeek: date.week
     })
   },
