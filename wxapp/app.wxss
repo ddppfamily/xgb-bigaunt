@@ -67,3 +67,6 @@ picker{
 .ba-progress>view.current{
   background: #ee816d;
 }
+.t-center{
+  text-align: center;
+}

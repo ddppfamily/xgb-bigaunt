@@ -1,0 +1,6 @@
+<view class='t-center header'>我的预产期</view>
+<picker mode="date" value="{{date}}" start="2018-01-01" end="2025-12-31" bindchange="bindDateChange">
+    <view class="picker t-center date" >
+      {{date}}
+    </view>
+  </picker>

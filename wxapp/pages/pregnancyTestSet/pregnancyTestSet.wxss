@@ -1,0 +1,8 @@
+/* pregnancyTestSet.wxss */
+.header{
+  padding:15rpx;
+}
+.date{
+  color:#fd5677;
+  font-size:45rpx;
+}

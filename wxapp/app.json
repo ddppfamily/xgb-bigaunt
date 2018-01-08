@@ -7,7 +7,8 @@
     "pages/set1/set1",
     "pages/set2/set2",
     "pages/test/test",
-    "pages/nav/nav"
+    "pages/nav/nav",
+    "pages/pregnancyTestSet/pregnancyTestSet"
   ],
   "window": {
     "backgroundTextStyle": "light",
