@@ -1,0 +1,29 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="page__hd">
+    <view class="tips">
+      {{tips}}
+    </view>
+  </view>
+  <view class="page__hd">
+    <view class="section__ctn">
+        <image class="image" style="width: 130px; height: 130px; background-color: #eeeeee;" mode="{{item.mode}}" src="{{src}}"></image>
+    </view>
+  </view>  
+  <form bindsubmit="formSubmit" name="formName">
+    <view class="section">
+      <view>您受孕时虚岁年龄</view>
+      <input name="age" placeholder="请输入年龄" type='number' value='19'/>
+    </view>
+    <view class="section">
+      <picker name="month" bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+        <view class="picker">
+          您受孕（排卵）的农历月份：{{array[index]}}
+        </view>
+      </picker>
+    </view>
+    <view class="section sub-btn">
+      <button type="primary" form-type="submit" class="cal-btn"> 开始计算      </button>
+    </view>
+  </form>  
+</view>

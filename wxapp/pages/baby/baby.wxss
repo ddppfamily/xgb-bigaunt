@@ -1,0 +1,40 @@
+/**index.wxss**/
+.tips {
+  padding-left: 15rpx;
+  padding-right: 15rpx;
+  font-size: 11pt;
+  color: #888888;
+}
+
+.image {
+  margin-top: 30rpx;
+}
+
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.usermotto {
+  margin-top: 200px;
+}
+
+.sub-btn{
+  margin-top: 50px;
+}
+
+.cal-btn {
+  background-color: red
+}
