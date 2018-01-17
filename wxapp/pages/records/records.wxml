@@ -40,7 +40,7 @@
              <!--选中  -->
             <block wx:if='{{cell.ymd === displayYMD}}'>
                 <view wx:if="{{cell.status == 0}}" 
-                  class="currentDate current selected" 
+                  class="currentDate selected" 
                   data-ymd='{{cell.ymd}}'
                   data-status='{{cell.status}}' 
                   bindtap='handleDateTap'>
@@ -52,7 +52,7 @@
               </view>
 
             <view wx:if="{{cell.status == 1}}" 
-                  class="currentDate current start selected" 
+                  class="currentDate selected" 
                   data-ymd='{{cell.ymd}}'
                   data-status='{{cell.status}}'
                   bindtap='handleDateTap'>
@@ -65,7 +65,7 @@
             </view>
 
             <view wx:if="{{cell.status == 2}}" 
-                  class="currentDate current continue selected" 
+                  class="currentDate selected" 
                   data-ymd='{{cell.ymd}}'
                   data-status='{{cell.status}}'
                   bindtap='handleDateTap'>
@@ -78,7 +78,7 @@
             </view>
 
             <view wx:if="{{cell.status == 3}}" 
-                  class="currentDate current pause selected" 
+                  class="currentDate selected" 
                   data-ymd='{{cell.ymd}}' 
                   data-status='{{cell.status}}' 
                   bindtap='handleDateTap'>
@@ -90,11 +90,11 @@
                   <view class='xgb-status pause'></view>
             </view>
              <view wx:if="{{cell.status == 4}}" 
-                  class="currentDate current easy selected" 
+                  class="currentDate selected" 
                   data-ymd='{{cell.ymd}}' 
                   data-status='{{cell.status}}' 
                   bindtap='handleDateTap'>
-                  <view class='xgb-outer-circle'>
+                  <view class='xgb-outer-circle easy'>
                    <view class='xgb-inner-mask'>
                     <view class='xgb-inner-circle'>{{cell.date}}</view>
                    </view>
@@ -102,11 +102,11 @@
              </view>
 
              <view wx:if="{{cell.status == 5}}" 
-                  class="currentDate current ovulation selected" 
+                  class="currentDate selected" 
                   data-ymd='{{cell.ymd}}' 
                   data-status='{{cell.status}}' 
                   bindtap='handleDateTap'>
-                  <view class='xgb-outer-circle'>
+                  <view class='xgb-outer-circle ovulation'>
                    <view class='xgb-inner-mask'>
                     <view class='xgb-inner-circle'>{{cell.date}}</view>
                    </view>
@@ -117,7 +117,7 @@
             <!--未选中  -->
             <block wx:else>
                  <view wx:if="{{cell.status == 0}}" 
-                  class="currentDate current " 
+                  class="currentDate " 
                   data-ymd='{{cell.ymd}}'
                   data-status='{{cell.status}}' 
                   bindtap='handleDateTap'>
@@ -129,7 +129,7 @@
                 </view>
 
             <view wx:if="{{cell.status == 1}}" 
-                  class="currentDate start current" 
+                  class="currentDate" 
                   data-ymd='{{cell.ymd}}'
                   data-status='{{cell.status}}'
                   bindtap='handleDateTap'>
@@ -142,7 +142,7 @@
             </view>
 
             <view wx:if="{{cell.status == 2}}" 
-                  class="currentDate continue current" 
+                  class="currentDate" 
                   data-ymd='{{cell.ymd}}'
                   data-status='{{cell.status}}'
                   bindtap='handleDateTap'>
@@ -155,7 +155,7 @@
             </view>
 
             <view wx:if="{{cell.status == 3}}" 
-                  class="currentDate pause current" 
+                  class="currentDate " 
                   data-ymd='{{cell.ymd}}' 
                   data-status='{{cell.status}}' 
                   bindtap='handleDateTap'>
@@ -167,11 +167,11 @@
                   <view class='xgb-status pause'></view>
             </view>
              <view wx:if="{{cell.status == 4}}" 
-                  class="currentDate easy current" 
+                  class="currentDate" 
                   data-ymd='{{cell.ymd}}' 
                   data-status='{{cell.status}}' 
                   bindtap='handleDateTap'>
-                  <view class='xgb-outer-circle'>
+                  <view class='xgb-outer-circle easy'>
                    <view class='xgb-inner-mask'>
                     <view class='xgb-inner-circle'>{{cell.date}}</view>
                    </view>
@@ -179,7 +179,7 @@
              </view>
 
              <view wx:if="{{cell.status == 5}}" 
-                  class="currentDate ovulation current" 
+                  class="currentDate" 
                   data-ymd='{{cell.ymd}}' 
                   data-status='{{cell.status}}' 
                   bindtap='handleDateTap'>
@@ -249,11 +249,11 @@
                     </view>
 
               <view wx:if="{{cell.status == 4}}" 
-                  class="currentDate easy selected" 
+                  class="currentDate selected" 
                   data-ymd='{{cell.ymd}}' 
                   data-status='{{cell.status}}' 
                   bindtap='handleDateTap'>
-                  <view class='xgb-outer-circle'>
+                  <view class='xgb-outer-circle easy'>
                    <view class='xgb-inner-mask'>
                     <view class='xgb-inner-circle'>{{cell.date}}</view>
                    </view>
@@ -261,17 +261,18 @@
                   </view>
 
                <view wx:if="{{cell.status == 5}}" 
-                  class="currentDate ovulation selected" 
+                  class="currentDate selected" 
                   data-ymd='{{cell.ymd}}' 
                   data-status='{{cell.status}}' 
                   bindtap='handleDateTap'>
-                  <view class='xgb-outer-circle'>
+                  <view class='xgb-outer-circle ovulation'>
                     <view class='xgb-inner-mask'>
                      <view class='xgb-inner-circle'>{{cell.date}}</view>
                     </view> 
                   </view>
                   </view> 
               </block>
+              <!--为选中  -->
               <block wx:else>
                  <view wx:if="{{cell.status == 0}}" 
                     data-ymd='{{cell.ymd}}' 
@@ -363,9 +364,49 @@
 
 </view>
 </view>
-<!--手动调整-->
+<!--提示-->
 <view class='calender-dayDesc'  wx:if='{{tipVisible === true}}'>
-  <view class='calender-dayDesc-block'>
+  <view class='calender-dayDesc-block tip-safe' wx:if='{{currentDateTip.status === 0}}'>
+     <view class='calender-dayDesc-outer'>
+      <view class='calender-dayDesc-inner'>
+        <view class='dayDesc-name'>{{currentDateTip.name}}</view>
+        <view class='dayDesc-desc'>{{currentDateTip.desc}}</view>
+      </view>
+     </view>   
+  </view>
+  <view class='calender-dayDesc-block tip-start' wx:if='{{currentDateTip.status === 1}}'>
+     <view class='calender-dayDesc-outer'>
+      <view class='calender-dayDesc-inner'>
+        <view class='dayDesc-name'>{{currentDateTip.name}}</view>
+        <view class='dayDesc-desc'>{{currentDateTip.desc}}</view>
+      </view>
+     </view>   
+  </view>
+ <view class='calender-dayDesc-block tip-continue' wx:if='{{currentDateTip.status === 2}}'>
+     <view class='calender-dayDesc-outer'>
+      <view class='calender-dayDesc-inner'>
+        <view class='dayDesc-name'>{{currentDateTip.name}}</view>
+        <view class='dayDesc-desc'>{{currentDateTip.desc}}</view>
+      </view>
+     </view>   
+  </view>
+  <view class='calender-dayDesc-block tip-pause' wx:if='{{currentDateTip.status === 3}}'>
+     <view class='calender-dayDesc-outer'>
+      <view class='calender-dayDesc-inner'>
+        <view class='dayDesc-name'>{{currentDateTip.name}}</view>
+        <view class='dayDesc-desc'>{{currentDateTip.desc}}</view>
+      </view>
+     </view>   
+  </view>
+ <view class='calender-dayDesc-block tip-easy' wx:if='{{currentDateTip.status === 4}}'>
+     <view class='calender-dayDesc-outer'>
+      <view class='calender-dayDesc-inner'>
+        <view class='dayDesc-name'>{{currentDateTip.name}}</view>
+        <view class='dayDesc-desc'>{{currentDateTip.desc}}</view>
+      </view>
+     </view>   
+  </view>
+  <view class='calender-dayDesc-block tip-ovulation' wx:if='{{currentDateTip.status === 5}}'>
      <view class='calender-dayDesc-outer'>
       <view class='calender-dayDesc-inner'>
         <view class='dayDesc-name'>{{currentDateTip.name}}</view>

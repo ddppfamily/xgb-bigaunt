@@ -21,7 +21,7 @@ border-radius:30rpx;
 }
 .calender-change-date{
   /* border:1px solid #e1e1e1; */
-  padding:10rpx 20rpx;
+  padding:10rpx 40rpx;
 }
 .calender-header,.calender-row,.calender-desp{
   display: flex;
@@ -43,7 +43,7 @@ border-radius:30rpx;
   position: relative;
 }
 .currentDate{
-  color:crimson;
+  color:#fc6c9d;
 }
 .calender-panel{
   background: #fff;
@@ -74,23 +74,32 @@ border-radius:30rpx;
    background: #ffd98c;
    /* border:2px solid #FFCCCC;  */
 }
-.calender-row .selected{
+.calender-row .selected .easy, .calender-row .selected .easy .xgb-inner-circle{
    /* border:2px solid #efefef;
    background: #efefef; */
+   background: #ffabc8;
+   color:#fff;
+}
+.calender-row .selected .ovulation, .calender-row .selected .ovulation .xgb-inner-circle{
+   /* border:2px solid #efefef;
+   background: #efefef; */
+   background: #fc6c9d;
+   color:#fff;
 }
 /* .calender-row .current{
    border:2px solid #CC0000;
 } */
 .calender-row .easy{
-   color: #9933FF;
+   color: #ffabc8;
 }
 .calender-row .ovulation{
-   color: #FFCC00;
+   color: #fc6c9d;
 }
  .calender-row .safe,.calender-row .safe .xgb-inner-circle{
    /* color: #99CC00; */
    background: #6accc0;
 } 
+
 .calender-row .submit-start{
   color: #fff;
   background: #CC0000;
@@ -137,7 +146,7 @@ border-radius:30rpx;
 .calender-dayDesc-block{
   color:#fff;
   /* padding: 10rpx; */
-  background: #6accc0;
+  /* background: #6accc0; */
   border-radius: 40px;
 }
 .calender-dayDesc-outer{
@@ -148,7 +157,7 @@ border-radius:30rpx;
   border-radius:30px;
 }
 .calender-dayDesc-inner{
-  background: #6accc0;
+  /* background: #6accc0; */
   border-radius:25px;
   position: relative;
 }
@@ -175,28 +184,28 @@ border-radius:30rpx;
   display: inline-block;
 }
 .tag-menstrual{
-  color:#FFCCCC;
+  color:#333;
 }
 .tag-menstrual .tag{
-  background:#FFCCCC; 
+  background:#ffd98c;
 }
 .tag-safe{
-  color:#99CC00;
+  color:#333;
 }
 .tag-safe .tag{
-  background: #99CC00;
+  background: #6accc0;
 }
 .tag-easy{
-  color:#9933FF;
+  color:#333;
 }
 .tag-easy .tag{
-  background:#9933FF; 
+  background:#ffabc8; 
 }
 .tag-ovulation{
-  color:#FFCC00;
+  color:#333;
 }
 .tag-ovulation .tag{
-  background: #FFCC00;
+  background: #fc6c9d;
 }
 .go-set{
   display: inline-block;
@@ -235,8 +244,23 @@ border-radius:30rpx;
   /* background: green; */
   color:#fff;
 }
+.xgb-inner-mask{
+  padding: 3px;
+}
 .selected .xgb-inner-mask{
   background: rgba(255, 255, 255, 0.5);
   border-radius:50%;
   padding:3px;
+}
+.tip-safe,.tip-safe .calender-dayDesc-inner{
+  background:#6accc0;
+}
+.tip-easy,.tip-easy .calender-dayDesc-inner{
+  background: #ffabc8;
+}
+.tip-ovulation,.tip-ovulation .calender-dayDesc-inner{
+  background: #fc6c9d;
+}
+.tip-start,.tip-continue,.tip-pause,.tip-start .calender-dayDesc-inner,.tip-continue .calender-dayDesc-inner,.tip-pause .calender-dayDesc-inner{
+ background: #ffd98c;
 }

@@ -85,7 +85,8 @@ Page({
     ////点击每个日期，出现下方的文本提示
     currentDateTip: {
       name: '',
-      desc: ''
+      desc: '',
+      status: ''
     },
     ///手动确定是否来了，或者是结束了
     submitBtn:false,
@@ -197,7 +198,8 @@ Page({
        tipVisible: true,
        currentDateTip: {
          name: name,
-         desc: desc
+         desc: desc,
+         status: status
        }
      })
   },
@@ -656,7 +658,8 @@ Page({
        displayYMD: ymd,
        currentDateTip: {
          name: name,
-         desc: desc
+         desc: desc,
+         status: status
        }
      })
   },

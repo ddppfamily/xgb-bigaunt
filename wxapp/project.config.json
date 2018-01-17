@@ -21,7 +21,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 7,
+			"current": 0,
 			"list": [
 				{
 					"id": -1,
@@ -68,7 +68,8 @@
 				{
 					"id": -1,
 					"name": "pregnancyTestSet",
-					"pathName": "pages/pregnancyTestSet/pregnancyTestSet"
+					"pathName": "pages/pregnancyTestSet/pregnancyTestSet",
+					"query": ""
 				}
 			]
 		}
