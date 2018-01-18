@@ -1,12 +1,11 @@
 <!--records.wxml-->
 <view class='calender-change'>
   <image class='userLogo' 
-         src='{{userInfo.avatarUrl}}' 
-         bindtap='bindTapClear'></image>
+         src='{{userInfo.avatarUrl}}'></image>
   <text bindtap='change' data-tag='pre' class='iconfont xgb-arrow-left'></text>
   <text class='calender-change-date'>{{displayYear}} - {{displayMonth}}</text>
   <text bindtap='change' data-tag='next' class='iconfont xgb-arrow-right'></text>
-  <navigator url="/pages/set/set" class='go-set'>配置</navigator>
+  <navigator url="/pages/set/set" class='go-set'><text class='iconfont xgb-setting'></text></navigator>
 </view>
 <view class='calender-panel'>
 <view class='calender-header'>

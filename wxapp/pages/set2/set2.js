@@ -118,6 +118,9 @@ Page({
        period = base.period,
        nickName = app.globalData.userInfo.nickName
     console.log(nickName)
+    wx.showLoading({
+      title: '保存中',
+    })
     ///发送配置
     wx.request({
       url: 'https://h5.xiaoguaibao.com/bigaunt/save',
@@ -139,6 +142,9 @@ Page({
         wx.reLaunch({
           url: '/pages/records/records'
         })
+      },
+      fail: function () {
+        wx.hideLoading()
       }
     })
    
