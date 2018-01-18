@@ -50,3 +50,15 @@ position:relative;
   background:#fff;
   color:#ee816d;
 }
+page{
+  background:-webkit-linear-gradient(top, #fc6c9d, #faafa8);
+}
+.ba-page{
+  margin:50rpx;
+}
+.ba-header{
+  margin:0;
+}
+.title{
+  color:#ff81af;
+}

@@ -1,35 +1,35 @@
-<!--set1.wxml-->
+<!--set.wxml-->
 <view class='ba-page'>
-   <view class='ba-header'><text>----修改设置----</text></view>
+   <view class='ba-header'><text class='title'>修改设置</text></view>
 
    <view class='ba-form'>
       <view class='ba-form-cell'>
-         <view class='ba-form-cell-header'><text>上次结束时间</text></view>
-         <view>
+         <view class='ba-form-cell-header'><text class='title'>上次结束时间</text></view>
+         <view class='ba-form-cell-input'>
             <picker mode='date' 
                     bindchange='handleStartDateChangeTap'><text class='ba-input'>{{endDate}}</text></picker>
          </view>
       </view>
       <view  class='ba-form-cell'>
-         <view  class='ba-form-cell-header'><text>经期持续天数</text></view>
-         <view>
+         <view  class='ba-form-cell-header'><text class='title'>经期持续天数</text></view>
+         <view class='ba-form-cell-input'>
               <picker mode='selector' 
                     bindchange='handleContinueDaysChangeTap' range='{{continueDaysArr}}'><text class='ba-input'>{{continueDays}}</text></picker>
          </view>
       </view>
       <view>
-         <view class='ba-form-cell-header'><text>周期(两次月经开始日间隔多久)</text></view>
-         <view>
+         <view class='ba-form-cell-header'><text class='title'>周期(两次月经开始日间隔多久)</text></view>
+         <view class='ba-form-cell-input'>
             <picker mode='selector' 
                     bindchange='handleGapDaysChangeTap' range='{{gapDaysArr}}'><text class='ba-input'>{{period}}</text></picker>
          </view>
       </view>   
    </view>
    <view wx:if="{{nextVisible === false}}" class="btn-container">
-      <text class="disabled">保存</text>
+      <text class="btn disabled">保存</text>
       </view>
    <view wx:else bindtap='handleNextStep' class="btn-container" >
-      <text class="abled">保存</text>
+      <text class="btn abled">保存</text>
    </view>
 
 </view>

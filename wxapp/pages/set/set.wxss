@@ -1,18 +1,43 @@
-/* set1.wxss */
+/* set.wxss */
+.btn-container .btn{
+  padding:8rpx 40rpx;
+  border-radius: 20rpx;
+  display: block;
+}
 .disabled{
   background: #efefef;
-  padding:20rpx 40rpx;
-  border-radius: 20rpx;
 }
 .abled{
-  background: #ee816d;
+  background: -webkit-radial-gradient(center, #fc6c9d, #faafa8);
   color:#fff;
-  padding:20rpx 40rpx;
-  border-radius: 20rpx;
 }
 .btn-container{
-  margin:40rpx;
+  margin:30rpx 15rpx;
 }
 picker{
-  color:#ee816d;
+  color:#666;
+  margin:20rpx;
+}
+picker text{
+  height:30px;
+  line-height:30px;
+  border-radius:10rpx;
+}
+page{
+  background:-webkit-linear-gradient(top, #fc6c9d, #faafa8);
+}
+.ba-page{
+  margin:50rpx;
+}
+.ba-header{
+  margin:0;
+}
+.ba-input{
+  font-size: 16px;
+}
+.title{
+  color:#ff81af;
+}
+.ba-form-cell-input{
+  overflow: hidden;
 }
