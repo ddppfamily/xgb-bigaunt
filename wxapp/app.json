@@ -8,7 +8,8 @@
     "pages/set2/set2",
     "pages/test/test",
     "pages/nav/nav",
-    "pages/pregnancyTestSet/pregnancyTestSet"
+    "pages/pregnancyCalendar/set/set",
+    "pages/pregnancyCalendar/index/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

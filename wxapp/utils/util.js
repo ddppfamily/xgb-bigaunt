@@ -129,6 +129,93 @@ const isTheNext = (ymd,year,month) => {
     return 1
   } 
 }
+/**
+ * getUser
+ */
+const getUser = ()=>{
+  // 登录
+  wx.login({
+    success: res => {
+      // 发送 res.code 到后台换取 openId, sessionKey, unionId
+      console.log(res)
+      // this.globalData.code = res.code
+      // 获取用户信息
+      wx.getSetting({
+        success: res => {
+          //if (res.authSetting['scope.userInfo']) {
+            // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+            wx.getUserInfo({
+              withCredentials: true,
+              success: res => {
+                // 可以将 res 发送给后台解码出 unionId
+                console.log(res)
+                // this.globalData.userInfo = res.userInfo
+                // this.globalData.encryptedData = res.encryptedData
+                // thid.globalData.iv = res.iv
+                // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+                // 所以此处加入 callback 以防止这种情况
+                // if (this.userInfoReadyCallback) {
+                //   this.userInfoReadyCallback(res)
+                // }
+              }
+            })
+          // } else {
+          //   wx.openSetting({
+          //     success: function success(res) {
+          //       console.log('openSetting success', res.authSetting);
+          //     }
+          //   })
+            // this.globalData.userInfo = {
+            //   nickName: ''
+            // }
+            // if (this.userInfoReadyCallback) {
+            //   this.userInfoReadyCallback({
+            //     userInfo: {
+            //       nickName: ''
+            //     }
+            //   })
+            // }
+          //}
+        }
+      })
+    }
+  })
+}
+/**
+ * 是否是空对象
+ */
+const isEmptyObject = (obj) => {
+   var t = ''
+   for (t in obj){
+     return false
+   }
+   return true
+}
+/**
+  * 检测用户授权状态
+  */
+const checkSetting = ()=> {
+  wx.getSetting({
+      success: (res) => {
+        var authSetting = res.authSetting
+        if (isEmptyObject(authSetting)) {
+          console.log('authSetting empty')
+          //打开授权
+          getUser()
+         
+        } else {
+          console.log(authSetting)
+          if (authSetting['scope.userInfo'] === false) {
+            wx.openSetting({
+              success: function success(res) {
+                console.log('openSetting success', res.authSetting);
+              }
+            })
+          }
+        }
+      }
+  })
+}
 module.exports = {
   formatTime: formatTime,
   formatNumber: formatNumber,
@@ -138,5 +225,7 @@ module.exports = {
   compilerYmd: compilerYmd,
   isTheNext: isTheNext,
   compareYM: compareYM,
-  cDate: cDate
+  cDate: cDate,
+  checkSetting: checkSetting,
+  getUser: getUser
 }

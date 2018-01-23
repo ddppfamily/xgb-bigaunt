@@ -70,3 +70,6 @@ picker{
 .t-center{
   text-align: center;
 }
+.block{
+  margin:10rpx 0;
+}

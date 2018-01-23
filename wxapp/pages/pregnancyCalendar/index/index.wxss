@@ -1,0 +1,17 @@
+/* index.wxss */
+.xgb-list{
+  padding: 20rpx;
+}
+.xgb-list .list-cell{
+  display: flex;
+  border-bottom:1px solid #999;
+  padding:20rpx;
+}
+.xgb-list .list-cell>view{
+  flex:1;
+
+}
+.xgb-list .list-cell .btn{
+  flex: none;
+  width:100rpx;
+}

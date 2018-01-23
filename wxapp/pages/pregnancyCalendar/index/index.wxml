@@ -1,0 +1,21 @@
+<!--index.wxml-->
+<view class='xgb-list'>
+    <view class='list-cell'>
+      <view>
+        <view>第一次</view>
+       <view>12周</view>
+      </view>
+      <view class='btn'>
+         <view></view>
+      </view>
+    </view>
+    <view class='list-cell'>
+      <view>
+        <view>第二次</view>
+       <view>16周</view>
+      </view>
+      <view class='btn'>
+         <view></view>
+      </view>
+    </view>
+</view>

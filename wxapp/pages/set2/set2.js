@@ -116,8 +116,13 @@ Page({
        continueDays = base.continueDays,
        gapDays = base.gapDays,
        period = base.period,
-       nickName = app.globalData.userInfo.nickName
-    console.log(nickName)
+       nickName = app.globalData.userInfo.nickName,
+       encryptedData = app.globalData.encryptedData,
+       iv = app.globalData.iv,
+       code = app.globalData.code
+
+    //console.log(nickName)
+    console.log('encryptedData==' + encryptedData + ',iv='+ iv + ', code='+code)
     wx.showLoading({
       title: '保存中',
     })
@@ -126,6 +131,9 @@ Page({
       url: 'https://h5.xiaoguaibao.com/bigaunt/save',
       data: {
         nickName: nickName,
+        code: code,
+        encryptedData: encryptedData,
+        iv: iv,
         dysmenorrhea: this.data.level.value,
         isLaw: this.data.regularity.value,
         menstrualCycle: period,

@@ -1,4 +1,6 @@
 // set1.js
+const Utils = require('../../utils/util.js')
+
 Page({
 
   /**
@@ -100,7 +102,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+   
   },
 
   /**
@@ -109,12 +111,12 @@ Page({
   onReady: function () {
   
   },
-
+ 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    Utils.checkSetting()
   },
 
   /**
