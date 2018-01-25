@@ -1,3 +1,4 @@
+const app = getApp()
 const formatTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -138,7 +139,7 @@ const getUser = ()=>{
     success: res => {
       // 发送 res.code 到后台换取 openId, sessionKey, unionId
       console.log(res)
-      // this.globalData.code = res.code
+      app.globalData.code = res.code
       // 获取用户信息
       wx.getSetting({
         success: res => {
@@ -149,9 +150,9 @@ const getUser = ()=>{
               success: res => {
                 // 可以将 res 发送给后台解码出 unionId
                 console.log(res)
-                // this.globalData.userInfo = res.userInfo
-                // this.globalData.encryptedData = res.encryptedData
-                // thid.globalData.iv = res.iv
+                app.globalData.userInfo = res.userInfo
+                app.globalData.encryptedData = res.encryptedData
+                app.globalData.iv = res.iv
                 // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
                 // 所以此处加入 callback 以防止这种情况
                 // if (this.userInfoReadyCallback) {
