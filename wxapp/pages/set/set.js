@@ -1,4 +1,6 @@
 // set1.js
+const app = getApp();
+// console.log('1.code=' + app.globalData.code + '; encryptedData=' + app.globalData.encryptedData + '; iv=' + app.globalData.iv)
 Page({
 
   /**
@@ -26,7 +28,9 @@ Page({
    * 初始化数据
    */
   initData () {
-    var base = wx.getStorageSync('base')
+    var base = wx.getStorageSync('base');
+    // var app = getApp();
+    // console.log('>>>>>>>' + app.globalData.userInfo)
     this.setData({
       endDate: base.endDate,
       continueDays: base.continueDays,
@@ -101,6 +105,10 @@ Page({
       continueDays = this.data.continueDays,
       period = this.data.period,
       gapDays = this.data.period - continueDays
+
+    //  console.log('enddate:' + endDate + '; continueDays:' + continueDays + '; period:' + period + '; gapDays:' + gapDays);
+     
+    //  console.log('code=' + app.globalData.code);
     wx.setStorageSync('base', {
       endDate: endDate,
       continueDays: continueDays,
@@ -108,10 +116,61 @@ Page({
       period: period
     })
     ////peizhi
+    // 更新配置
+    wx.login({
+      success: res => {
+        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        console.log(res)
+        app.globalData.code = res.code
+        // 获取用户信息
+        wx.getSetting({
+          success: res => {
+            //if (res.authSetting['scope.userInfo']) {
+            // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+            wx.getUserInfo({
+              withCredentials: true,
+              success: res => {
+                // 可以将 res 发送给后台解码出 unionId
+                console.log(res);
+                app.globalData.userInfo = res.userInfo;
+                app.globalData.encryptedData = res.encryptedData;
+                app.globalData.iv = res.iv;
+                console.log('1.1.code=' + app.globalData.code + '; encryptedData=' + app.globalData.encryptedData + '; iv=' + app.globalData.iv);
+
+                wx.request({
+                  url: 'https://h5.xiaoguaibao.com/bigaunt/update',
+                  data: {
+                    code: app.globalData.code,
+                    encryptedData: app.globalData.encryptedData,
+                    iv: app.globalData.iv,
+                    menstrualCycle: period,
+                    menstrualEndDate: endDate,
+                    numberOfDays: continueDays
+                  },
+                  header: {
+                    'content-type': 'application/json' // 默认值
+                  },
+                  success: function (res) {
+                    ///跳转
+                    wx.reLaunch({
+                      url: '/pages/records/records'
+                    })
+                  },
+                  fail: function () {
+                    wx.hideLoading()
+                  }
+                });
+              }
+            })
+          }
+        })
+      }
+    });
     
+    /*
     wx.reLaunch({
       url: '/pages/records/records'
-    })
+    })*/
   },
   
 

@@ -122,7 +122,7 @@ Page({
        code = app.globalData.code
 
     //console.log(nickName)
-    console.log('encryptedData==' + encryptedData + ',iv='+ iv + ', code='+code)
+    // console.log('encryptedData==' + encryptedData + ',iv='+ iv + ', code='+code)
     wx.showLoading({
       title: '保存中',
     })
