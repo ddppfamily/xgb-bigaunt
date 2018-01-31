@@ -428,7 +428,7 @@ Page({
         var baseEndDate = base.endDate,
           gapDays = base.gapDays,
           baseEndDateObj = new Date(baseEndDate),
-          continueDays = base.continueDays,
+          continueDays = base.continueDays - 1,
           endDateTimestamp = baseEndDateObj.getTime() + (gapDays + continueDays) * 24 * 60 * 60 * 1000 * index,
           startDateTimestamp = endDateTimestamp - continueDays * 24 * 60 * 60 * 1000,
           endDateObj = new Date(endDateTimestamp),
