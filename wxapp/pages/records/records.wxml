@@ -426,4 +426,4 @@
 <view>
   
 </view>
-<button open-type="contact">跟 姨妈妈 聊聊</button>
+<button class='xgb-chat' open-type="contact">找 姨妈妈 聊聊</button>

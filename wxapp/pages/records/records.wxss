@@ -264,3 +264,13 @@ border-radius:30rpx;
 .tip-start,.tip-continue,.tip-pause,.tip-start .calender-dayDesc-inner,.tip-continue .calender-dayDesc-inner,.tip-pause .calender-dayDesc-inner{
  background: #ffd98c;
 }
+
+.xgb-chat{
+  background: transparent;
+  color:#ffabc8;
+  margin-top:100px;
+  border:none;
+}
+.xgb-chat::after{
+  border: none;
+}
