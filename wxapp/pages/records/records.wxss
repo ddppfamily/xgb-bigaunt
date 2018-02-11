@@ -274,3 +274,9 @@ border-radius:30rpx;
 .xgb-chat::after{
   border: none;
 }
+.button-sp-area{
+  margin:0 auto;
+padding:10px 0;
+width:60%;
+
+}

@@ -426,4 +426,6 @@
 <view>
   
 </view>
-<button class='xgb-chat' open-type="contact">找 姨妈妈 聊聊</button>
+<view class="button-sp-area">
+<button class='weui-btn' plain="true" type="primary" open-type="contact">找 姨妈妈 聊聊</button>
+</view>
