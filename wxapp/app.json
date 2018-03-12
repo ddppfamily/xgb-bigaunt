@@ -9,7 +9,8 @@
     "pages/test/test",
     "pages/nav/nav",
     "pages/pregnancyCalendar/set/set",
-    "pages/pregnancyCalendar/index/index"
+    "pages/pregnancyCalendar/index/index",
+    "pages/pregnancyCalendar/detail/detail"
   ],
   "window": {
     "backgroundTextStyle": "light",

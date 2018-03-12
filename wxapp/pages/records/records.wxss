@@ -276,7 +276,21 @@ border-radius:30rpx;
 }
 .button-sp-area{
   margin:0 auto;
-padding:10px 0;
-width:60%;
+  padding:10px 0;
+  width:60%;
+}
 
+.mask>view{
+  margin:100px 20px;
+}
+.mask-title{
+  color:#000;
+  font-size: 16px;
+}
+.navigator-cell>navigator{
+  background: -webkit-gradient(linear, 0 0, 100% 0, from(#fc6c9d), to(#faafa8));
+  color:#fff;
+  border-radius: 10px;
+  margin:20px 0;
+  padding:5px 0;
 }

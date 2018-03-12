@@ -429,3 +429,14 @@
 <view class="button-sp-area">
 <button class='weui-btn' plain="true" type="primary" open-type="contact">找 姨妈妈 聊聊</button>
 </view>
+
+<!--模态遮罩  -->
+<view class='mask' wx:if="{{maskVisible === true}}">
+   <view>
+      <view class='t-center mask-title'>您还没设置哦，赶紧点击下面按钮吧</view>
+      <view class='navigator-cell t-center'>
+        <navigator url='../set1/set1'>去设置</navigator>
+        </view>
+      <view class='t-center'>请放心，我们不会泄露您的半点隐私</view>
+   </view>
+</view>

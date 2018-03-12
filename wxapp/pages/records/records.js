@@ -102,6 +102,7 @@ Page({
       show: false
     },
     tipVisible: false,
+    maskVisible: false,
     ///第几次
     index: 1
     
@@ -113,7 +114,8 @@ Page({
    */
   onLoad: function (options) {
     
-    if (this.isSetInitData()) {
+    // if (this.isSetInitData()) {
+    if (true){  
       this.initUserInfo()
 
       this.initDate()
@@ -458,7 +460,13 @@ Page({
         dateData = [],
         // computeTag = 'plus',
         index = 0
-      
+    ///当没有设置基础数据的时候，需要显现日历，出现模态，出现配置按钮引导    
+    if (!base || Object.keys(base).length == 0) {
+      this.setData({
+        maskVisible: true
+      })
+      return
+    }  
   
     ///如果是显示月份大于base月份，是加一
     if (Utils.compareYM(displayYMD, base.endDate) == 1 || Utils.compareYM(displayYMD, base.endDate) == 0) {
@@ -748,11 +756,11 @@ Page({
    */
   onShow: function () {
     console.log('onShow')
-    if(!this.isSetInitData()) {
-      wx.redirectTo({
-        url: '/pages/set1/set1'
-      })
-    }
+    // if(!this.isSetInitData()) {
+    //   wx.redirectTo({
+    //     url: '/pages/set1/set1'
+    //   })
+    // }
   },
 
   /**

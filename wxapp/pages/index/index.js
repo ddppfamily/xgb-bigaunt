@@ -28,7 +28,11 @@ Page({
       })
   },
   onLoad: function () {
-    this.isSetInitData()
+    //this.isSetInitData()
+    ////新流程，直接到日历去
+    wx.redirectTo({
+      url: '/pages/records/records'
+    })
     // if (app.globalData.userInfo) {
     //   this.setData({
     //     userInfo: app.globalData.userInfo,
