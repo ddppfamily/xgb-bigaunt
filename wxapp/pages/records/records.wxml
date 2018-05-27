@@ -437,6 +437,6 @@
       <view class='navigator-cell t-center'>
         <navigator url='../set1/set1'>去设置</navigator>
         </view>
-      <view class='t-center'>请放心，我们不会泄露您的半点隐私</view>
+      <view class='t-center' style='color:#fff;'>请放心，我们不会泄露您的半点隐私</view>
    </view>
 </view>
