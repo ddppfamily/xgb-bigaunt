@@ -1,4 +1,11 @@
 /**index.wxss**/
+.data-info-detail{
+  margin:20px;
+  width:180px;
+  height: 180px;
+  border-radius: 90px;
+  background: #fff;
+}
 .userinfo {
   display: flex;
   flex-direction: column;
@@ -18,4 +25,7 @@
 
 .usermotto {
   margin-top: 200px;
+}
+.index-date{
+  font-size: 28px;
 }

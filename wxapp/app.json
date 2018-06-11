@@ -17,5 +17,28 @@
     "navigationBarBackgroundColor": "#000",
     "navigationBarTitleText": "姨妈妈",
     "navigationBarTextStyle": "#fff"
+  },
+  "tabBar": {
+    "selectedColor": "#faafa8",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath":"images/home2.png",
+        "selectedIconPath": "images/home1.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/records/records",
+        "iconPath": "images/date2.png",
+        "selectedIconPath": "images/date1.png",
+        "text": "日历"
+      },
+      {
+        "pagePath": "pages/set1/set1",
+        "iconPath": "images/set2.png",
+        "selectedIconPath": "images/set1.png",
+        "text": "配置"
+      }
+    ]
   }
 }

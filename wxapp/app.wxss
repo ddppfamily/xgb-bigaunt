@@ -17,6 +17,13 @@ page{
   font-size:36rpx;
   color:#666;
 }
+.nomal-page{
+  text-align: center;
+  padding:20rpx;
+  background:-webkit-gradient(linear, 0 0, 100% 0, from(#fc6c9d), to(#faafa8));
+  /* border-bottom:3px solid #e1e1e1; */
+  color:#fff;
+}
 .ba-page{
   text-align: center;
   margin:20rpx;

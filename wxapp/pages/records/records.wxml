@@ -435,7 +435,7 @@
    <view>
       <view class='t-center mask-title'>您还没设置哦，赶紧点击下面按钮吧</view>
       <view class='navigator-cell t-center'>
-        <navigator url='../set1/set1'>去设置</navigator>
+        <navigator open-type='switchTab' url='../set1/set1'>去设置</navigator>
         </view>
       <view class='t-center' style='color:#fff;'>请放心，我们不会泄露您的半点隐私</view>
    </view>

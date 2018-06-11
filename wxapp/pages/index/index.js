@@ -7,7 +7,10 @@ Page({
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    year: '',
+    month: '',
+    date: ''
   },
   //事件处理函数
   bindViewTap: function() {
@@ -33,6 +36,15 @@ Page({
     wx.redirectTo({
       url: '/pages/records/records'
     })
+    let date = this.getDate()
+    this.setData({
+      year: date.year,
+      month: date.month,
+      date: date.day
+    })
+    /**
+     * v0.02 新增底部tab，默认展现当天的姨妈概况
+     */
     // if (app.globalData.userInfo) {
     //   this.setData({
     //     userInfo: app.globalData.userInfo,
@@ -62,6 +74,20 @@ Page({
     //     }
     //   })
     // }
+  },
+  /**
+   * 当天日期
+   */
+  getDate () {
+    let d = new Date()
+    let year = d.getFullYear()
+    let month = d.getMonth() + 1
+    let day = d.getDate()
+    return {
+      year,
+      month,
+      day
+    }
   },
   /**
    * 判断是否已经设置了初始化数据

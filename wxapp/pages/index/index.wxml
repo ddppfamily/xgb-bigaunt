@@ -1,12 +1,15 @@
 <!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    
-    <!-- <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block> -->
-    <image src=''></image>
-  </view>
-  
+<view class="container nomal-page">
+    <view class='date-info-block'>
+       <!-- <view class='data-info-detail'>
+       </view> -->
+       <view>
+          <view><text>今天是: </text><text class='index-date'>{{month}}月{{date}}日</text></view>
+       </view>
+       <!--未设置  -->
+       <!-- <view>
+          未设置
+       </view> -->
+    </view>
 </view>
+  
