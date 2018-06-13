@@ -117,8 +117,25 @@ Page({
    */
   onShow: function () {
     Utils.checkSetting()
+    this.initData()
+    if (this.isInputComplete()) {
+      this.handleDisplayNext()
+    }
   },
-
+  /**
+   * 初始化数据
+   */
+  initData() {
+    var base = wx.getStorageSync('base');
+    // var app = getApp();
+    // console.log('>>>>>>>' + app.globalData.userInfo)
+    this.setData({
+      endDate: base.endDate,
+      continueDays: base.continueDays,
+      period: base.period,
+      gapDays: base.gapDays
+    })
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */
